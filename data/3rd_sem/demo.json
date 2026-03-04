@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "question": "What is a 'Proposition' in Discrete Mathematics?",
+    "options": [
+      "A question or exclamation",
+      "A command or order",
+      "A declarative statement that is either True or False",
+      "An incomplete sentence"
+    ],
+    "answer": "A declarative statement that is either True or False",
+    "expert_note": "A proposition must have a definite truth value. For example, '2+2=4' is a proposition (True), but 'Where are you?' is not because it can't be true or false."
+  },
+  {
+    "id": 2,
+    "question": "If P is True and Q is False, what is the value of P ∧ Q (P AND Q)?",
+    "options": ["True", "False", "Both True and False", "None of the above"],
+    "answer": "False",
+    "expert_note": "In a conjunction (AND), the result is only True if BOTH statements are true. Since Q is false, the entire expression becomes false (think of it as 1 × 0 = 0)."
+  },
+  {
+    "id": 3,
+    "question": "Which of the following symbols represents 'Logical Negation'?",
+    "options": ["∧", "∨", "¬", "→"],
+    "answer": "¬",
+    "expert_note": "Negation simply flips the truth value. If a statement is True, its negation (¬P) is False. It is also sometimes represented by the tilde (~) symbol."
+  },
+  {
+    "id": 4,
+    "question": "A compound proposition that is always True, regardless of the truth values of its components, is called a:",
+    "options": ["Contradiction", "Tautology", "Contingency", "Predicate"],
+    "answer": "Tautology",
+    "expert_note": "If you draw a truth table and the final column consists only of 'True' values, it's a Tautology. If it's all 'False', it's a Contradiction."
+  },
+  {
+    "id": 5,
+    "question": "What is the result of P ∨ Q (P OR Q) if both P and Q are False?",
+    "options": ["True", "False", "Indeterminate", "None"],
+    "answer": "False",
+    "expert_note": "In a disjunction (OR), you only need ONE statement to be true for the result to be true. Since both are false here, the result is false (0 + 0 = 0)."
+  }
+]
