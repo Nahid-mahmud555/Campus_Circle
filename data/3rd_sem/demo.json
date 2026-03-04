@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "question": "What is a 'Proposition' in Discrete Mathematics?",
+    "question": "What is a Proposition in Discrete Mathematics?",
     "options": [
       "A question or exclamation",
       "A command or order",
@@ -9,34 +9,69 @@
       "An incomplete sentence"
     ],
     "answer": "A declarative statement that is either True or False",
-    "expert_note": "A proposition must have a definite truth value. For example, '2+2=4' is a proposition (True), but 'Where are you?' is not because it can't be true or false."
+    "expert_note": "A proposition must have a definite truth value. For example, 2+2=4 is a proposition (True), but Where are you? is not because it cannot be true or false."
   },
   {
     "id": 2,
-    "question": "If P is True and Q is False, what is the value of P ∧ Q (P AND Q)?",
+    "question": "If P is True and Q is False, what is the value of P AND Q?",
     "options": ["True", "False", "Both True and False", "None of the above"],
     "answer": "False",
-    "expert_note": "In a conjunction (AND), the result is only True if BOTH statements are true. Since Q is false, the entire expression becomes false (think of it as 1 × 0 = 0)."
+    "expert_note": "In a conjunction (AND), the result is only True if BOTH statements are true. Since Q is false, the result is false (1 x 0 = 0)."
   },
   {
     "id": 3,
-    "question": "Which of the following symbols represents 'Logical Negation'?",
-    "options": ["∧", "∨", "¬", "→"],
-    "answer": "¬",
-    "expert_note": "Negation simply flips the truth value. If a statement is True, its negation (¬P) is False. It is also sometimes represented by the tilde (~) symbol."
+    "question": "Which of the following symbols represents Logical Negation?",
+    "options": ["AND", "OR", "NOT (¬)", "IMPLIES"],
+    "answer": "NOT (¬)",
+    "expert_note": "Negation flips the truth value. If P is True, then NOT P is False. We use ¬ or ~ symbols for this."
   },
   {
     "id": 4,
-    "question": "A compound proposition that is always True, regardless of the truth values of its components, is called a:",
+    "question": "A compound proposition that is always True is called a:",
     "options": ["Contradiction", "Tautology", "Contingency", "Predicate"],
     "answer": "Tautology",
-    "expert_note": "If you draw a truth table and the final column consists only of 'True' values, it's a Tautology. If it's all 'False', it's a Contradiction."
+    "expert_note": "If every row in a truth table column results in True, it is a Tautology. If all are False, it is a Contradiction."
   },
   {
     "id": 5,
-    "question": "What is the result of P ∨ Q (P OR Q) if both P and Q are False?",
+    "question": "What is the result of P OR Q if both P and Q are False?",
     "options": ["True", "False", "Indeterminate", "None"],
     "answer": "False",
-    "expert_note": "In a disjunction (OR), you only need ONE statement to be true for the result to be true. Since both are false here, the result is false (0 + 0 = 0)."
+    "expert_note": "In an OR (Disjunction) operation, the result is only False if both inputs are False. (0 + 0 = 0)."
+  },
+  {
+    "id": 6,
+    "question": "What is the truth value of (P implies Q) if P is True and Q is False?",
+    "options": ["True", "False", "Both", "None"],
+    "answer": "False",
+    "expert_note": "In an Implication (P -> Q), the only way to get a False result is if the first part is True and the second part is False. It is like a broken promise!"
+  },
+  {
+    "id": 7,
+    "question": "Which set has no elements?",
+    "options": ["Universal Set", "Subset", "Empty Set", "Power Set"],
+    "answer": "Empty Set",
+    "expert_note": "An Empty Set (or Null Set) is denoted by ∅. It contains absolutely zero elements."
+  },
+  {
+    "id": 8,
+    "question": "If set A has 3 elements, how many elements are in its Power Set?",
+    "options": ["3", "6", "8", "9"],
+    "answer": "8",
+    "expert_note": "The number of elements in a Power Set is 2^n. Here, 2^3 = 8."
+  },
+  {
+    "id": 9,
+    "question": "Two sets are called Disjoint if their intersection is:",
+    "options": ["A Universal Set", "The same set", "An Empty Set", "A Finite Set"],
+    "answer": "An Empty Set",
+    "expert_note": "Disjoint sets have no common elements. So, A ∩ B = ∅."
+  },
+  {
+    "id": 10,
+    "question": "A function is called Bijective if it is:",
+    "options": ["Only One-to-One", "Only Onto", "Both One-to-One and Onto", "Neither"],
+    "answer": "Both One-to-One and Onto",
+    "expert_note": "A Bijective function means every element in the domain has a unique partner, and every element in the codomain is covered."
   }
 ]
