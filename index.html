@@ -117,8 +117,22 @@
         }
 
         async function openMCQ() {
-            subjectSection.classList.add('hidden');
-            mcqSection.classList.remove('hidden');
+    subjectSection.classList.add('hidden');
+    mcqSection.classList.remove('hidden');
+    
+    // পাথটা একদম নিখুঁতভাবে দিতে হবে (তোর ফোল্ডার অনুযায়ী)
+    const filePath = 'data/3rd_sem/demo.json'; 
+
+    try {
+        const response = await fetch(filePath);
+        if (!response.ok) throw new Error("File not found"); // ফাইল না পেলে এরর দিবে
+        const questions = await response.json();
+        renderQuestions(questions);
+    } catch (e) {
+        console.error(e);
+        alert("মামা, ফাইলটা 'data/3rd_sem/demo.json' এই পাথে খুঁজে পাচ্ছি না!");
+    }
+}
             
             // Load your demo.json
             try {
