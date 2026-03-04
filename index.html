@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Circle | Your Semester Partner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+        body { font-family: 'Poppins', sans-serif; background: #f4f7fe; scroll-behavior: smooth; }
+        .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.3); }
+        .coming-soon { filter: grayscale(1); opacity: 0.5; cursor: not-allowed; position: relative; }
+        .coming-soon::after { content: "Coming Soon"; position: absolute; top: 10px; right: 10px; background: #64748b; color: white; padding: 2px 8px; font-size: 10px; border-radius: 5px; }
+        .premium-lock { background: linear-gradient(rgba(255,255,255,0), rgba(244,247,254,1)); pointer-events: none; }
+        .whatsapp-float { position: fixed; bottom: 20px; right: 20px; background: #25d366; color: white; padding: 15px 25px; border-radius: 50px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); z-index: 1000; transition: 0.3s; }
+        .whatsapp-float:hover { transform: scale(1.05); }
+    </style>
+</head>
+<body>
+
+    <nav class="p-6 flex justify-between items-center max-w-7xl mx-auto">
+        <h1 class="text-2xl font-bold text-blue-600">Campus<span class="text-gray-800">Circle</span></h1>
+        <div id="user-status" class="text-sm font-semibold text-gray-500">Guest Mode</div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-6">
+        
+        <section id="home-section">
+            <header class="text-center py-12">
+                <h2 class="text-4xl md:text-6xl font-extrabold text-gray-900 mb-4">Campus Circle: Your All-in-One Semester Partner</h2>
+                <p class="text-gray-600">Past papers, MCQ banks, short notes — organised by semester.</p>
+            </header>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-20">
+                <div onclick="openSemester('3rd')" class="glass p-8 rounded-3xl cursor-pointer hover:shadow-xl transition group">
+                    <h3 class="text-xl font-bold group-hover:text-blue-600">3rd Semester</h3>
+                    <p class="text-sm text-gray-500">CSE Department</p>
+                </div>
+                <div onclick="openSemester('4th')" class="glass p-8 rounded-3xl cursor-pointer hover:shadow-xl transition group">
+                    <h3 class="text-xl font-bold group-hover:text-blue-600">4th Semester</h3>
+                    <p class="text-sm text-gray-500">CSE Department</p>
+                </div>
+                <div class="glass p-8 rounded-3xl coming-soon"><h3 class="text-xl font-bold">5th Semester</h3></div>
+                <div class="glass p-8 rounded-3xl coming-soon"><h3 class="text-xl font-bold">6th Semester</h3></div>
+                <div class="glass p-8 rounded-3xl coming-soon"><h3 class="text-xl font-bold">7th Semester</h3></div>
+                <div class="glass p-8 rounded-3xl coming-soon"><h3 class="text-xl font-bold">8th Semester</h3></div>
+            </div>
+        </section>
+
+        <section id="subject-section" class="hidden py-10">
+            <button onclick="showHome()" class="mb-6 text-blue-600 font-bold"><i class="fas fa-arrow-left"></i> Back to Semesters</button>
+            <h2 id="selected-sem-title" class="text-3xl font-bold mb-8"></h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div onclick="openMCQ()" class="glass p-6 rounded-3xl cursor-pointer border-2 border-transparent hover:border-blue-500">
+                    <i class="fas fa-brain text-3xl text-blue-500 mb-4"></i>
+                    <h4 class="text-xl font-bold">MCQ Bank</h4>
+                    <p class="text-sm text-gray-500">AI-Curated Practice Questions</p>
+                </div>
+                <div class="glass p-6 rounded-3xl opacity-50 cursor-not-allowed">
+                    <i class="fas fa-file-pdf text-3xl text-red-500 mb-4"></i>
+                    <h4 class="text-xl font-bold">Past Papers</h4>
+                    <p class="text-sm text-gray-500 italic">Coming Soon</p>
+                </div>
+                <div class="glass p-6 rounded-3xl opacity-50 cursor-not-allowed">
+                    <i class="fas fa-notes-medical text-3xl text-yellow-500 mb-4"></i>
+                    <h4 class="text-xl font-bold">Short Notes</h4>
+                    <p class="text-sm text-gray-500 italic">Coming Soon</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="mcq-section" class="hidden py-10">
+            <button onclick="openSemester('3rd')" class="mb-6 text-blue-600 font-bold"><i class="fas fa-arrow-left"></i> Back to Subjects</button>
+            <div id="mcq-container" class="space-y-6 max-w-3xl mx-auto">
+                </div>
+        </section>
+
+    </main>
+
+    <div id="payment-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-6 z-[2000]">
+        <div class="bg-white p-8 rounded-3xl max-w-md w-full text-center">
+            <i class="fas fa-lock text-5xl text-red-500 mb-4"></i>
+            <h3 class="text-2xl font-bold mb-2">মামা, প্রিমিয়াম লাগবে!</h3>
+            <p class="text-gray-600 mb-6">পুরো ৫০০+ এমসিকিউ আর সলিউশন নোট আনলক করতে চাইলে প্রিমিয়াম মেম্বার হও মাত্র ৯ টাকায়!</p>
+            <div class="bg-blue-50 p-4 rounded-xl mb-6 text-left">
+                <p class="text-sm"><strong>বিকাশ/নগদ (Personal):</strong> 017XXXXXXXX</p>
+                <p class="text-xs text-gray-500 mt-2">টাকা পাঠিয়ে নিচের বাটনে ক্লিক করে TrxID আর তোর ইমেইলটা পাঠা।</p>
+            </div>
+            <a href="https://wa.me/YOUR_NUMBER" class="block bg-green-500 text-white py-3 rounded-xl font-bold shadow-lg hover:bg-green-600 transition">
+                <i class="fab fa-whatsapp"></i> WhatsApp TrxID
+            </a>
+            <button onclick="closeModal()" class="mt-4 text-gray-400 text-sm">পরে করবো</button>
+        </div>
+    </div>
+
+    <a href="https://wa.me/YOUR_GROUP_LINK" class="whatsapp-float font-bold">
+        <i class="fab fa-whatsapp"></i> মামা, গ্রুপে আয়!
+    </a>
+
+    <script>
+        const homeSection = document.getElementById('home-section');
+        const subjectSection = document.getElementById('subject-section');
+        const mcqSection = document.getElementById('mcq-section');
+        const paymentModal = document.getElementById('payment-modal');
+
+        function openSemester(sem) {
+            homeSection.classList.add('hidden');
+            mcqSection.classList.add('hidden');
+            subjectSection.classList.remove('hidden');
+            document.getElementById('selected-sem-title').innerText = sem + " Semester (CSE)";
+        }
+
+        function showHome() {
+            subjectSection.classList.add('hidden');
+            homeSection.classList.remove('hidden');
+        }
+
+        async function openMCQ() {
+            subjectSection.classList.add('hidden');
+            mcqSection.classList.remove('hidden');
+            
+            // Load your demo.json
+            try {
+                const response = await fetch('demo.json');
+                const questions = await response.json();
+                renderQuestions(questions);
+            } catch (e) {
+                alert("মামা, demo.json ফাইলটা খুঁজে পাচ্ছি না!");
+            }
+        }
+
+        function renderQuestions(questions) {
+            const container = document.getElementById('mcq-container');
+            container.innerHTML = "";
+
+            questions.forEach((q, index) => {
+                const isLocked = index >= 5; // ৫টার পর লক
+                const card = document.createElement('div');
+                card.className = `glass p-6 rounded-3xl transition ${isLocked ? 'premium-lock' : ''}`;
+                
+                card.innerHTML = `
+                    <p class="text-sm font-bold text-blue-500">Question ${index + 1}</p>
+                    <h4 class="text-lg font-bold mt-2 text-gray-800">${q.question}</h4>
+                    <div class="mt-4 space-y-2">
+                        ${q.options.map(opt => `<button onclick="handleAns(this, '${q.answer}', '${q.expert_note}')" class="w-full text-left p-3 rounded-xl border border-gray-200 hover:bg-blue-50 transition">${opt}</button>`).join('')}
+                    </div>
+                    <div class="explanation hidden mt-4 p-4 bg-green-50 rounded-xl border-l-4 border-green-500">
+                        <p class="text-xs font-bold text-green-700 uppercase">Expert Note:</p>
+                        <p class="text-sm text-gray-700">${q.expert_note}</p>
+                    </div>
+                `;
+
+                if(isLocked && index === 5) {
+                    const lockBtn = document.createElement('button');
+                    lockBtn.className = "w-full py-4 mt-4 bg-gray-900 text-white rounded-2xl font-bold shadow-xl";
+                    lockBtn.innerHTML = "🔒 Unlock All Questions (৳9)";
+                    lockBtn.onclick = () => paymentModal.classList.remove('hidden');
+                    container.appendChild(lockBtn);
+                }
+
+                container.appendChild(card);
+            });
+        }
+
+        function handleAns(btn, correct, note) {
+            const parent = btn.parentElement.parentElement;
+            const explanation = parent.querySelector('.explanation');
+            
+            if(btn.innerText === correct) {
+                btn.classList.add('bg-green-100', 'border-green-500', 'text-green-700');
+            } else {
+                btn.classList.add('bg-red-100', 'border-red-500', 'text-red-700');
+            }
+            explanation.classList.remove('hidden');
+        }
+
+        function closeModal() { paymentModal.classList.add('hidden'); }
+    </script>
+</body>
+</html>
