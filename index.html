@@ -25,13 +25,11 @@
     </nav>
 
     <main class="max-w-7xl mx-auto px-6">
-        
         <section id="home-section">
             <header class="text-center py-12">
                 <h2 class="text-4xl md:text-6xl font-extrabold text-gray-900 mb-4">Campus Circle: Your All-in-One Semester Partner</h2>
                 <p class="text-gray-600">Past papers, MCQ banks, short notes — organised by semester.</p>
             </header>
-
             <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-20">
                 <div onclick="openSemester('3rd')" class="glass p-8 rounded-3xl cursor-pointer hover:shadow-xl transition group">
                     <h3 class="text-xl font-bold group-hover:text-blue-600">3rd Semester</h3>
@@ -43,8 +41,6 @@
                 </div>
                 <div class="glass p-8 rounded-3xl coming-soon"><h3 class="text-xl font-bold">5th Semester</h3></div>
                 <div class="glass p-8 rounded-3xl coming-soon"><h3 class="text-xl font-bold">6th Semester</h3></div>
-                <div class="glass p-8 rounded-3xl coming-soon"><h3 class="text-xl font-bold">7th Semester</h3></div>
-                <div class="glass p-8 rounded-3xl coming-soon"><h3 class="text-xl font-bold">8th Semester</h3></div>
             </div>
         </section>
 
@@ -60,49 +56,46 @@
                 <div class="glass p-6 rounded-3xl opacity-50 cursor-not-allowed">
                     <i class="fas fa-file-pdf text-3xl text-red-500 mb-4"></i>
                     <h4 class="text-xl font-bold">Past Papers</h4>
-                    <p class="text-sm text-gray-500 italic">Coming Soon</p>
                 </div>
                 <div class="glass p-6 rounded-3xl opacity-50 cursor-not-allowed">
                     <i class="fas fa-notes-medical text-3xl text-yellow-500 mb-4"></i>
                     <h4 class="text-xl font-bold">Short Notes</h4>
-                    <p class="text-sm text-gray-500 italic">Coming Soon</p>
                 </div>
             </div>
         </section>
 
         <section id="mcq-section" class="hidden py-10">
             <button onclick="openSemester('3rd')" class="mb-6 text-blue-600 font-bold"><i class="fas fa-arrow-left"></i> Back to Subjects</button>
-            <div id="mcq-container" class="space-y-6 max-w-3xl mx-auto">
-                </div>
+            <div id="mcq-container" class="space-y-6 max-w-3xl mx-auto"></div>
         </section>
-
     </main>
 
     <div id="payment-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-6 z-[2000]">
         <div class="bg-white p-8 rounded-3xl max-w-md w-full text-center">
             <i class="fas fa-lock text-5xl text-red-500 mb-4"></i>
-            <h3 class="text-2xl font-bold mb-2">মামা, প্রিমিয়াম লাগবে!</h3>
-            <p class="text-gray-600 mb-6">পুরো ৫০০+ এমসিকিউ আর সলিউশন নোট আনলক করতে চাইলে প্রিমিয়াম মেম্বার হও মাত্র ৯ টাকায়!</p>
-            <div class="bg-blue-50 p-4 rounded-xl mb-6 text-left">
-                <p class="text-sm"><strong>বিকাশ/নগদ (Personal):</strong> 017XXXXXXXX</p>
-                <p class="text-xs text-gray-500 mt-2">টাকা পাঠিয়ে নিচের বাটনে ক্লিক করে TrxID আর তোর ইমেইলটা পাঠা।</p>
+            <h3 class="text-2xl font-bold mb-2">মামা, প্রিমিয়াম লাগবে!</h3>
+            <p class="text-gray-600 mb-6">পুরো ৫০০+ এমসিকিউ আনলক করতে মাত্র ৯ টাকা পেমেন্ট করো।</p>
+            <div class="bg-blue-50 p-4 rounded-xl mb-6 text-left text-sm">
+                <p><strong>Bkash/Nagad:</strong> 017XXXXXXXX</p>
             </div>
-            <a href="https://wa.me/YOUR_NUMBER" class="block bg-green-500 text-white py-3 rounded-xl font-bold shadow-lg hover:bg-green-600 transition">
-                <i class="fab fa-whatsapp"></i> WhatsApp TrxID
-            </a>
+            <a href="https://wa.me/YOUR_NUMBER" class="block bg-green-500 text-white py-3 rounded-xl font-bold">WhatsApp TrxID</a>
             <button onclick="closeModal()" class="mt-4 text-gray-400 text-sm">পরে করবো</button>
         </div>
     </div>
 
-    <a href="https://wa.me/YOUR_GROUP_LINK" class="whatsapp-float font-bold">
-        <i class="fab fa-whatsapp"></i> মামা, গ্রুপে আয়!
-    </a>
+    <a href="https://wa.me/YOUR_GROUP_LINK" class="whatsapp-float font-bold"><i class="fab fa-whatsapp"></i> মামা, গ্রুপে আয়!</a>
 
     <script>
         const homeSection = document.getElementById('home-section');
         const subjectSection = document.getElementById('subject-section');
         const mcqSection = document.getElementById('mcq-section');
         const paymentModal = document.getElementById('payment-modal');
+
+        function showHome() {
+            subjectSection.classList.add('hidden');
+            homeSection.classList.remove('hidden');
+            mcqSection.classList.add('hidden');
+        }
 
         function openSemester(sem) {
             homeSection.classList.add('hidden');
@@ -111,48 +104,21 @@
             document.getElementById('selected-sem-title').innerText = sem + " Semester (CSE)";
         }
 
-        function showHome() {
-            subjectSection.classList.add('hidden');
-            homeSection.classList.remove('hidden');
-        }
-
         async function openMCQ() {
-    subjectSection.classList.add('hidden');
-    mcqSection.classList.remove('hidden');
-    
-    // মামুন, এখানে তোর রেপোজিটরির নাম অনুযায়ী ডাইনামিক পাথ বসাচ্ছি
-    const repoName = window.location.pathname.split('/')[1]; 
-    const filePath = `/${repoName}/data/3rd_sem/demo.json`; 
-
-    console.log("Loading file from:", filePath); // এটা চেক করার জন্য
-
-    try {
-        const response = await fetch(filePath);
-        if (!response.ok) {
-            // যদি উপরেরটা কাজ না করে, তবে সরাসরি গিটহাবের র (Raw) লিঙ্ক ট্রাই করি
-            const rawPath = './data/3rd_sem/demo.json';
-            const rawResponse = await fetch(rawPath);
-            if (!rawResponse.ok) throw new Error("JSON not found in both paths");
+            subjectSection.classList.add('hidden');
+            mcqSection.classList.remove('hidden');
             
-            const questions = await rawResponse.json();
-            renderQuestions(questions);
-        } else {
-            const questions = await response.json();
-            renderQuestions(questions);
-        }
-    } catch (e) {
-        console.error("Mama, file load failed:", e);
-        alert("মামা, ফাইলটা পাওন যায় নাই! ডাটা/৩য়_সেম ফোল্ডারে 'demo.json' আছে তো?");
-    }
-}
-            
-            // Load your demo.json
+            // GitHub Path Logic
+            const filePath = './data/3rd_sem/demo.json'; 
+
             try {
-                const response = await fetch('demo.json');
+                const response = await fetch(filePath);
+                if (!response.ok) throw new Error("File not found");
                 const questions = await response.json();
                 renderQuestions(questions);
             } catch (e) {
-                alert("মামা, demo.json ফাইলটা খুঁজে পাচ্ছি না!");
+                console.error(e);
+                alert("মামা, demo.json ফাইলটা খুঁজে পাচ্ছি না! পাথ: " + filePath);
             }
         }
 
@@ -161,9 +127,9 @@
             container.innerHTML = "";
 
             questions.forEach((q, index) => {
-                const isLocked = index >= 5; // ৫টার পর লক
+                const isLocked = index >= 5; 
                 const card = document.createElement('div');
-                card.className = `glass p-6 rounded-3xl transition ${isLocked ? 'premium-lock' : ''}`;
+                card.className = `glass p-6 rounded-3xl transition ${isLocked ? 'premium-lock opacity-40' : ''}`;
                 
                 card.innerHTML = `
                     <p class="text-sm font-bold text-blue-500">Question ${index + 1}</p>
@@ -179,12 +145,14 @@
 
                 if(isLocked && index === 5) {
                     const lockBtn = document.createElement('button');
-                    lockBtn.className = "w-full py-4 mt-4 bg-gray-900 text-white rounded-2xl font-bold shadow-xl";
+                    lockBtn.className = "w-full py-4 mt-4 bg-gray-900 text-white rounded-2xl font-bold shadow-xl relative z-50";
                     lockBtn.innerHTML = "🔒 Unlock All Questions (৳9)";
-                    lockBtn.onclick = () => paymentModal.classList.remove('hidden');
+                    lockBtn.onclick = (e) => {
+                        e.stopPropagation();
+                        paymentModal.classList.remove('hidden');
+                    };
                     container.appendChild(lockBtn);
                 }
-
                 container.appendChild(card);
             });
         }
@@ -192,8 +160,7 @@
         function handleAns(btn, correct, note) {
             const parent = btn.parentElement.parentElement;
             const explanation = parent.querySelector('.explanation');
-            
-            if(btn.innerText === correct) {
+            if(btn.innerText.trim() === correct.trim()) {
                 btn.classList.add('bg-green-100', 'border-green-500', 'text-green-700');
             } else {
                 btn.classList.add('bg-red-100', 'border-red-500', 'text-red-700');
