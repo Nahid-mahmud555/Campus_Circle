@@ -120,17 +120,29 @@
     subjectSection.classList.add('hidden');
     mcqSection.classList.remove('hidden');
     
-    // পাথটা একদম নিখুঁতভাবে দিতে হবে (তোর ফোল্ডার অনুযায়ী)
-    const filePath = 'data/3rd_sem/demo.json'; 
+    // মামুন, এখানে তোর রেপোজিটরির নাম অনুযায়ী ডাইনামিক পাথ বসাচ্ছি
+    const repoName = window.location.pathname.split('/')[1]; 
+    const filePath = `/${repoName}/data/3rd_sem/demo.json`; 
+
+    console.log("Loading file from:", filePath); // এটা চেক করার জন্য
 
     try {
         const response = await fetch(filePath);
-        if (!response.ok) throw new Error("File not found"); // ফাইল না পেলে এরর দিবে
-        const questions = await response.json();
-        renderQuestions(questions);
+        if (!response.ok) {
+            // যদি উপরেরটা কাজ না করে, তবে সরাসরি গিটহাবের র (Raw) লিঙ্ক ট্রাই করি
+            const rawPath = './data/3rd_sem/demo.json';
+            const rawResponse = await fetch(rawPath);
+            if (!rawResponse.ok) throw new Error("JSON not found in both paths");
+            
+            const questions = await rawResponse.json();
+            renderQuestions(questions);
+        } else {
+            const questions = await response.json();
+            renderQuestions(questions);
+        }
     } catch (e) {
-        console.error(e);
-        alert("মামা, ফাইলটা 'data/3rd_sem/demo.json' এই পাথে খুঁজে পাচ্ছি না!");
+        console.error("Mama, file load failed:", e);
+        alert("মামা, ফাইলটা পাওন যায় নাই! ডাটা/৩য়_সেম ফোল্ডারে 'demo.json' আছে তো?");
     }
 }
             
