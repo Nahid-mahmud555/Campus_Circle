@@ -1,198 +1,894 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Campus Circle | Fixed</title>
+    <title>Campus Circle | Premium Learning Platform</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
-        body { font-family: 'Poppins', sans-serif; background: #f4f7fe; }
-        .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.3); }
-        .coming-soon { filter: grayscale(1); opacity: 0.5; cursor: not-allowed; }
-        .premium-lock { opacity: 0.4; pointer-events: none; filter: blur(1px); }
-        .whatsapp-float { position: fixed; bottom: 20px; right: 20px; background: #25d366; color: white; padding: 15px 25px; border-radius: 50px; z-index: 1000; }
+        @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body { 
+            font-family: 'Poppins', 'Hind Siliguri', sans-serif; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* অ্যানিমেটেড ব্যাকগ্রাউন্ড */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .animated-bg span {
+            position: absolute;
+            display: block;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 25s linear infinite;
+            bottom: -150px;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* গ্লাসমর্ফিজম ইফেক্ট */
+        .glass {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+            border-color: rgba(102, 126, 234, 0.5);
+        }
+
+        /* কমিং সুন স্টাইল */
+        .coming-soon {
+            filter: grayscale(1);
+            opacity: 0.5;
+            cursor: not-allowed;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .coming-soon::after {
+            content: "Coming Soon";
+            position: absolute;
+            top: 10px;
+            right: -30px;
+            background: #ff4757;
+            color: white;
+            padding: 5px 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transform: rotate(45deg);
+            box-shadow: 0 2px 10px rgba(255, 71, 87, 0.3);
+        }
+
+        /* প্রিমিয়াম লক ইফেক্ট */
+        .premium-lock {
+            opacity: 0.7;
+            filter: blur(2px);
+            pointer-events: none;
+            position: relative;
+        }
+
+        .premium-lock::before {
+            content: "🔒";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            z-index: 10;
+            opacity: 1;
+            filter: none;
+        }
+
+        /* হোয়াটসঅ্যাপ ফ্লোটিং বাটন */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            color: white;
+            padding: 16px 30px;
+            border-radius: 60px;
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+            animation: bounce 2s infinite;
+            transition: all 0.3s;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.6);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* অ্যানিমেশন ক্লাস */
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .slide-up {
+            animation: slideUp 0.6s ease-out;
+        }
+
+        .slide-in-left {
+            animation: slideInLeft 0.5s ease-out;
+        }
+
+        .slide-in-right {
+            animation: slideInRight 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* কাস্টম স্ক্রলবার */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.1);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #764ba2, #667eea);
+        }
+
+        /* ব্যাজ স্টাইল */
+        .badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(135deg, #ff4757, #ff6b81);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(255,71,87,0.3);
+        }
+
+        /* ট্রফি অ্যানিমেশন */
+        .trophy {
+            animation: trophy 1s ease infinite;
+        }
+
+        @keyframes trophy {
+            0%, 100% { transform: rotate(0); }
+            25% { transform: rotate(-10deg); }
+            75% { transform: rotate(10deg); }
+        }
+
+        /* কাউন্টার নম্বর */
+        .counter-number {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* লোডিং স্পিনার */
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* প্রগ্রেস বার */
+        .progress-bar {
+            height: 8px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
     </style>
 </head>
 <body>
+    <!-- অ্যানিমেটেড ব্যাকগ্রাউন্ড -->
+    <div class="animated-bg" id="animatedBg"></div>
 
-    <nav class="p-6 flex justify-between items-center max-w-7xl mx-auto">
-        <h1 onclick="location.reload()" class="text-2xl font-bold text-blue-600 cursor-pointer">Campus<span class="text-gray-800">Circle</span></h1>
+    <!-- নেভিগেশন বার -->
+    <nav class="glass fixed top-0 left-0 right-0 z-50 py-4 px-6">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div onclick="location.reload()" class="flex items-center gap-2 cursor-pointer group">
+                <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center transform group-hover:rotate-6 transition-all">
+                    <i class="fas fa-graduation-cap text-white text-xl"></i>
+                </div>
+                <h1 class="text-2xl font-bold text-white">
+                    Campus<span class="text-yellow-300">Circle</span>
+                </h1>
+            </div>
+            
+            <div class="flex items-center gap-6">
+                <button onclick="showHome()" class="text-white/80 hover:text-white transition-all">
+                    <i class="fas fa-home"></i>
+                    <span class="ml-2 hidden md:inline">হোম</span>
+                </button>
+                <button onclick="showPremiumPopup()" class="bg-gradient-to-r from-yellow-400 to-yellow-600 text-white px-6 py-2 rounded-full font-semibold hover:shadow-xl transform hover:scale-105 transition-all">
+                    <i class="fas fa-crown"></i>
+                    <span class="ml-2">প্রিমিয়াম</span>
+                </button>
+                <button class="bg-white/20 text-white px-6 py-2 rounded-full font-semibold hover:bg-white/30 transition-all">
+                    <i class="fas fa-user"></i>
+                    <span class="ml-2 hidden md:inline">লগইন</span>
+                </button>
+            </div>
+        </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto px-6">
-        
-        <section id="home-section">
-            <header class="text-center py-12">
-                <h2 class="text-4xl font-extrabold text-gray-900 mb-4">Select Your Semester</h2>
-                <p class="text-gray-600">Choose your semester to start practicing.</p>
-            </header>
+    <!-- মূল কন্টেন্ট -->
+    <main class="max-w-7xl mx-auto px-6 pt-24 pb-20">
+        <!-- হোম সেকশন -->
+        <section id="home-section" class="fade-in">
+            <!-- হিরো ব্যানার -->
+            <div class="glass rounded-3xl p-12 mb-12 text-center relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-32 -mt-32"></div>
+                <div class="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full -ml-32 -mb-32"></div>
+                
+                <div class="relative z-10">
+                    <h2 class="text-5xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
+                        মামা, পড়তে <span class="text-yellow-300">বস!</span>
+                    </h2>
+                    <p class="text-xl text-white/90 max-w-3xl mx-auto">
+                        ৩য় ও ৪র্থ সেমিস্টারের জন্য সবকিছু এক জায়গায়। MCQ, নোটস, পাস্ট পেপারস - সব ফ্রি!
+                    </p>
+                    
+                    <!-- স্ট্যাটস -->
+                    <div class="flex justify-center gap-12 mt-10">
+                        <div class="text-center">
+                            <div class="counter-number text-white">৫০০+</div>
+                            <div class="text-white/70">MCQ প্রশ্ন</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="counter-number text-white">২০০+</div>
+                            <div class="text-white/70">নোটস</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="counter-number text-white">১০০০+</div>
+                            <div class="text-white/70">স্টুডেন্ট</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- সেমিস্টার গ্রিড -->
+            <h3 class="text-3xl font-bold text-white mb-8 flex items-center gap-3">
+                <i class="fas fa-layer-group text-yellow-300"></i>
+                তোমার সেমিস্টার সিলেক্ট করো
+            </h3>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div onclick="showSubjects('3rd')" class="glass p-8 rounded-3xl cursor-pointer hover:shadow-xl border-2 border-transparent hover:border-blue-500 transition">
-                    <h3 class="text-xl font-bold">3rd Semester</h3>
-                    <p class="text-sm text-blue-500">Active</p>
+                <!-- সেমিস্টার ১ -->
+                <div class="glass-card p-8 rounded-3xl coming-soon relative">
+                    <i class="fas fa-book-open text-4xl text-gray-400 mb-4"></i>
+                    <h3 class="text-2xl font-bold text-gray-700">১ম সেমিস্টার</h3>
+                    <p class="text-sm text-gray-500">শীঘ্রই আসছে</p>
                 </div>
-                <div onclick="showSubjects('4th')" class="glass p-8 rounded-3xl cursor-pointer hover:shadow-xl border-2 border-transparent hover:border-blue-500 transition">
-                    <h3 class="text-xl font-bold">4th Semester</h3>
-                    <p class="text-sm text-blue-500">Active</p>
+
+                <!-- সেমিস্টার ২ -->
+                <div class="glass-card p-8 rounded-3xl coming-soon relative">
+                    <i class="fas fa-book-open text-4xl text-gray-400 mb-4"></i>
+                    <h3 class="text-2xl font-bold text-gray-700">২য় সেমিস্টার</h3>
+                    <p class="text-sm text-gray-500">শীঘ্রই আসছে</p>
                 </div>
-                <div class="glass p-8 rounded-3xl coming-soon"><h3 class="text-xl font-bold">5th Semester</h3></div>
-                <div class="glass p-8 rounded-3xl coming-soon"><h3 class="text-xl font-bold">6th Semester</h3></div>
+
+                <!-- সেমিস্টার ৩ (একটিভ) -->
+                <div onclick="showSubjects('3rd')" class="glass-card p-8 rounded-3xl cursor-pointer relative group">
+                    <div class="absolute top-4 right-4">
+                        <span class="bg-green-500 text-white text-xs px-3 py-1 rounded-full">Active</span>
+                    </div>
+                    <i class="fas fa-brain text-4xl text-blue-500 mb-4 group-hover:scale-110 transition-transform"></i>
+                    <h3 class="text-2xl font-bold text-gray-800">৩য় সেমিস্টার</h3>
+                    <p class="text-sm text-blue-500 mt-2">কম্পিউটার সাইন্স</p>
+                    
+                    <!-- হোভার ইফেক্ট -->
+                    <div class="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                </div>
+
+                <!-- সেমিস্টার ৪ (একটিভ) -->
+                <div onclick="showSubjects('4th')" class="glass-card p-8 rounded-3xl cursor-pointer relative group">
+                    <div class="absolute top-4 right-4">
+                        <span class="bg-green-500 text-white text-xs px-3 py-1 rounded-full">Active</span>
+                    </div>
+                    <i class="fas fa-code text-4xl text-purple-500 mb-4 group-hover:scale-110 transition-transform"></i>
+                    <h3 class="text-2xl font-bold text-gray-800">৪র্থ সেমিস্টার</h3>
+                    <p class="text-sm text-purple-500 mt-2">সফটওয়্যার ডেভেলপমেন্ট</p>
+                    
+                    <!-- হোভার ইফেক্ট -->
+                    <div class="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                </div>
+
+                <!-- সেমিস্টার ৫ -->
+                <div class="glass-card p-8 rounded-3xl coming-soon relative">
+                    <i class="fas fa-laptop-code text-4xl text-gray-400 mb-4"></i>
+                    <h3 class="text-2xl font-bold text-gray-700">৫ম সেমিস্টার</h3>
+                    <p class="text-sm text-gray-500">শীঘ্রই আসছে</p>
+                </div>
+
+                <!-- সেমিস্টার ৬ -->
+                <div class="glass-card p-8 rounded-3xl coming-soon relative">
+                    <i class="fas fa-database text-4xl text-gray-400 mb-4"></i>
+                    <h3 class="text-2xl font-bold text-gray-700">৬ষ্ঠ সেমিস্টার</h3>
+                    <p class="text-sm text-gray-500">শীঘ্রই আসছে</p>
+                </div>
+
+                <!-- সেমিস্টার ৭ -->
+                <div class="glass-card p-8 rounded-3xl coming-soon relative">
+                    <i class="fas fa-cloud text-4xl text-gray-400 mb-4"></i>
+                    <h3 class="text-2xl font-bold text-gray-700">৭ম সেমিস্টার</h3>
+                    <p class="text-sm text-gray-500">শীঘ্রই আসছে</p>
+                </div>
+
+                <!-- সেমিস্টার ৮ -->
+                <div class="glass-card p-8 rounded-3xl coming-soon relative">
+                    <i class="fas fa-robot text-4xl text-gray-400 mb-4"></i>
+                    <h3 class="text-2xl font-bold text-gray-700">৮ম সেমিস্টার</h3>
+                    <p class="text-sm text-gray-500">শীঘ্রই আসছে</p>
+                </div>
             </div>
         </section>
 
-        <section id="subject-section" class="hidden py-10">
-            <button onclick="goToHome()" class="mb-6 text-blue-600 font-bold"><i class="fas fa-arrow-left"></i> Back to Semesters</button>
-            <h2 id="sem-title" class="text-3xl font-bold mb-8"></h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div onclick="startQuiz()" class="glass p-6 rounded-3xl cursor-pointer border-2 border-transparent hover:border-blue-500">
-                    <i class="fas fa-brain text-3xl text-blue-500 mb-4"></i>
-                    <h4 class="text-xl font-bold">MCQ Bank</h4>
-                    <p class="text-sm text-gray-500">Practice with Expert Notes</p>
+        <!-- সাবজেক্ট সেকশন -->
+        <section id="subject-section" class="hidden slide-up">
+            <button onclick="goToHome()" class="group mb-8 text-white font-bold flex items-center gap-2 hover:gap-4 transition-all">
+                <i class="fas fa-arrow-left bg-white/20 p-3 rounded-full group-hover:bg-white/30"></i>
+                <span>ব্যাক টু হোম</span>
+            </button>
+
+            <div class="glass rounded-3xl p-8 mb-8">
+                <h2 id="sem-title" class="text-3xl md:text-4xl font-bold text-white mb-2"></h2>
+                <p class="text-white/80">তোমার সাবজেক্ট সিলেক্ট করো</p>
+                
+                <!-- প্রগ্রেস বার -->
+                <div class="mt-6 progress-bar w-64">
+                    <div class="progress-fill" style="width: 60%"></div>
                 </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="subjects-grid">
+                <!-- সাবজেক্টগুলো ডায়নামিক্যালি লোড হবে -->
             </div>
         </section>
 
-        <section id="quiz-section" class="hidden py-10">
-            <button id="back-to-sub-btn" class="mb-6 text-blue-600 font-bold"><i class="fas fa-arrow-left"></i> Back to Subjects</button>
-            <div id="quiz-container" class="max-w-2xl mx-auto space-y-6 pb-20">
-                </div>
-        </section>
+        <!-- কুইজ সেকশন -->
+        <section id="quiz-section" class="hidden">
+            <button id="back-to-sub-btn" class="group mb-8 text-white font-bold flex items-center gap-2 hover:gap-4 transition-all">
+                <i class="fas fa-arrow-left bg-white/20 p-3 rounded-full group-hover:bg-white/30"></i>
+                <span>ব্যাক টু সাবজেক্টস</span>
+            </button>
 
+            <!-- কুইজ হেডার -->
+            <div class="glass rounded-3xl p-8 mb-8">
+                <div class="flex items-center gap-4">
+                    <div class="w-16 h-16 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-2xl flex items-center justify-center">
+                        <i class="fas fa-question text-white text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-white" id="quiz-subject-name"></h3>
+                        <p class="text-white/80">প্রশ্নের উত্তর দাও এবং এক্সপার্ট নোট দেখো</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- কুইজ কন্টেইনার -->
+            <div id="quiz-container" class="space-y-6 pb-20"></div>
+        </section>
     </main>
 
-    <div id="payment-modal" class="hidden fixed inset-0 bg-black/60 flex items-center justify-center z-[2000] p-4">
-        <div class="bg-white p-8 rounded-3xl max-w-sm w-full text-center">
-            <div class="w-16 h-16 bg-red-100 text-red-500 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">🔒</div>
-            <h3 class="text-2xl font-bold mb-2 text-gray-800">মামা, প্রিমিয়াম লাগবে!</h3>
-            <p class="text-gray-600 mb-6">পুরো ৫০০+ প্রশ্ন আনলক করতে নিচের নম্বরে ৯ টাকা সেন্ড মানি করো।</p>
-            <div class="bg-blue-50 p-4 rounded-xl mb-6 text-left border-l-4 border-blue-500">
-                <p class="font-bold text-gray-700 text-sm italic">বিকাশ/নগদ (Personal): 01XXXXXXXXX</p>
+    <!-- হোয়াটসঅ্যাপ ফ্লোটিং বাটন -->
+    <a href="https://wa.me/88019XXXXXXXX?text=মামা,%20গ্রুপে%20আছি!" class="whatsapp-float flex items-center gap-3" target="_blank">
+        <i class="fab fa-whatsapp text-2xl"></i>
+        <span class="font-semibold">মামা, গ্রুপে আয়!</span>
+    </a>
+
+    <!-- প্রিমিয়াম পপআপ -->
+    <div id="payment-modal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-[2000] p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full transform scale-0 animate-[popIn_0.5s_ease_forwards]">
+            <!-- হেডার -->
+            <div class="bg-gradient-to-r from-purple-600 to-blue-600 p-6 rounded-t-3xl text-center relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16"></div>
+                <div class="absolute bottom-0 left-0 w-32 h-32 bg-white/10 rounded-full -ml-16 -mb-16"></div>
+                
+                <div class="w-20 h-20 bg-yellow-400 rounded-full flex items-center justify-center mx-auto mb-4 relative">
+                    <i class="fas fa-crown text-white text-3xl trophy"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white">প্রিমিয়াম মেম্বার হও!</h3>
+                <p class="text-white/90">মাত্র ৯ টাকায় আনলক করো সবকিছু</p>
             </div>
-            <a href="https://wa.me/YOUR_NUMBER" class="block bg-green-500 text-white p-4 rounded-2xl font-bold shadow-lg shadow-green-200">
-                <i class="fab fa-whatsapp"></i> WhatsApp Transaction ID
-            </a>
-            <button onclick="closeModal()" class="mt-4 text-gray-400 text-sm hover:underline">পরে কিনবো</button>
+
+            <!-- বডি -->
+            <div class="p-8">
+                <div class="text-center mb-6">
+                    <span class="text-5xl font-bold text-gray-800">৯</span>
+                    <span class="text-xl text-gray-500"> টাকা</span>
+                    <span class="text-sm text-gray-400 block">(লাইফটাইম এক্সেস)</span>
+                </div>
+
+                <!-- ফিচার লিস্ট -->
+                <div class="space-y-4 mb-8">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                            <i class="fas fa-check text-green-500"></i>
+                        </div>
+                        <span class="text-gray-700">৫০০+ MCQ ব্যাংক</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                            <i class="fas fa-check text-green-500"></i>
+                        </div>
+                        <span class="text-gray-700">এক্সপার্ট নোটস সহ সমাধান</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                            <i class="fas fa-check text-green-500"></i>
+                        </div>
+                        <span class="text-gray-700">পাস্ট ইয়ার প্রশ্ন</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                            <i class="fas fa-check text-green-500"></i>
+                        </div>
+                        <span class="text-gray-700">প্রাইভেট সাপোর্ট গ্রুপ</span>
+                    </div>
+                </div>
+
+                <!-- পেমেন্ট ইনফো -->
+                <div class="bg-blue-50 p-5 rounded-xl mb-6">
+                    <p class="text-sm text-blue-800 font-semibold mb-2">📱 বিকাশ/নগদ (Personal)</p>
+                    <p class="text-2xl font-bold text-blue-600 text-center">019XXXXXXXX</p>
+                    <p class="text-xs text-blue-500 text-center mt-2">(মামার পার্সোনাল নম্বর)</p>
+                </div>
+
+                <!-- ইনপুট ফিল্ড -->
+                <input type="email" id="userEmail" placeholder="তোমার ইমেইল" class="w-full p-4 border-2 border-gray-200 rounded-2xl mb-4 focus:border-blue-500 focus:outline-none transition-all">
+                <input type="text" id="trxId" placeholder="TrxID" class="w-full p-4 border-2 border-gray-200 rounded-2xl mb-6 focus:border-blue-500 focus:outline-none transition-all">
+
+                <!-- বাটন -->
+                <button onclick="sendPaymentInfo()" class="w-full bg-gradient-to-r from-green-500 to-green-600 text-white p-4 rounded-2xl font-bold text-lg hover:shadow-xl transform hover:scale-105 transition-all flex items-center justify-center gap-2">
+                    <i class="fab fa-whatsapp text-xl"></i>
+                    হোয়াটসঅ্যাপে TrxID পাঠাও
+                </button>
+
+                <button onclick="closeModal()" class="w-full mt-4 text-gray-400 hover:text-gray-600 transition-all text-sm">
+                    পরে করবো
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- লগইন পপআপ -->
+    <div id="login-modal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-[2000] p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-8">
+            <div class="text-center mb-6">
+                <div class="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-user text-white text-3xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800">লগইন করুন</h3>
+            </div>
+
+            <input type="email" placeholder="ইমেইল" class="w-full p-4 border-2 border-gray-200 rounded-2xl mb-4">
+            <input type="password" placeholder="পাসওয়ার্ড" class="w-full p-4 border-2 border-gray-200 rounded-2xl mb-6">
+
+            <button class="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white p-4 rounded-2xl font-bold text-lg hover:shadow-xl transition-all">
+                লগইন
+            </button>
+
+            <p class="text-center mt-4 text-gray-500">
+                নতুন ইউজার? <span class="text-blue-500 cursor-pointer hover:underline">রেজিস্টার করুন</span>
+            </p>
         </div>
     </div>
 
     <script>
+        // গ্লোবাল ভেরিয়েবল
         let currentSemester = "";
-        const s1 = document.getElementById('home-section');
-        const s2 = document.getElementById('subject-section');
-        const s3 = document.getElementById('quiz-section');
+        let currentSubject = "";
+        let questions = [];
+
+        // এলিমেন্ট রেফারেন্স
+        const homeSection = document.getElementById('home-section');
+        const subjectSection = document.getElementById('subject-section');
+        const quizSection = document.getElementById('quiz-section');
         const modal = document.getElementById('payment-modal');
+        const loginModal = document.getElementById('login-modal');
         const quizContainer = document.getElementById('quiz-container');
+        const subjectsGrid = document.getElementById('subjects-grid');
+        const semTitle = document.getElementById('sem-title');
+        const quizSubjectName = document.getElementById('quiz-subject-name');
 
-        function goToHome() {
-            s1.classList.remove('hidden');
-            s2.classList.add('hidden');
-            s3.classList.add('hidden');
-        }
-
-        function showSubjects(sem) {
-            currentSemester = sem;
-            s1.classList.add('hidden');
-            s2.classList.remove('hidden');
-            s3.classList.add('hidden');
-            document.getElementById('sem-title').innerText = sem + " Semester Content";
-            document.getElementById('back-to-sub-btn').onclick = () => showSubjects(sem);
-        }
-
-        async function startQuiz() {
-            s2.classList.add('hidden');
-            s3.classList.remove('hidden');
-            quizContainer.innerHTML = "<div class='text-center py-10'><i class='fas fa-spinner fa-spin text-3xl text-blue-500'></i><p class='mt-2'>মামা, ডাটা লোড হচ্ছে...</p></div>";
-
-            // ডাইনামিক পাথ: ৩য় হলে data/3rd_sem/demo.json, ৪র্থ হলে data/4th_sem/demo.json
-            const path = `./data/${currentSemester}_sem/demo.json`;
-
-            try {
-                const res = await fetch(path);
-                if (!res.ok) throw new Error("File not found");
-                const data = await res.json();
-                renderQuestions(data);
-            } catch (err) {
-                quizContainer.innerHTML = `
-                    <div class='bg-red-50 p-6 rounded-2xl text-red-600 border border-red-100'>
-                        <h4 class='font-bold'>মামা, ফাইলটা নাই!</h4>
-                        <p class='text-sm mt-2'>পাথ: <b>${path}</b> এই ফোল্ডারে 'demo.json' ফাইলটা খুঁজে পাওয়া যাচ্ছে না।</p>
-                    </div>`;
+        // অ্যানিমেটেড ব্যাকগ্রাউন্ড
+        function createAnimatedBg() {
+            const bg = document.getElementById('animatedBg');
+            for (let i = 0; i < 20; i++) {
+                const span = document.createElement('span');
+                const size = Math.random() * 60 + 20;
+                span.style.width = size + 'px';
+                span.style.height = size + 'px';
+                span.style.left = Math.random() * 100 + '%';
+                span.style.animationDuration = Math.random() * 20 + 15 + 's';
+                span.style.animationDelay = Math.random() * 5 + 's';
+                bg.appendChild(span);
             }
         }
 
-        function renderQuestions(questions) {
+        // হোম পেজ দেখান
+        function showHome() {
+            homeSection.classList.remove('hidden');
+            subjectSection.classList.add('hidden');
+            quizSection.classList.add('hidden');
+        }
+
+        // হোমে ফেরত যান
+        function goToHome() {
+            homeSection.classList.remove('hidden');
+            subjectSection.classList.add('hidden');
+            quizSection.classList.add('hidden');
+        }
+
+        // সাবজেক্ট দেখান
+        function showSubjects(sem) {
+            currentSemester = sem;
+            
+            // সেকশন টগল
+            homeSection.classList.add('hidden');
+            subjectSection.classList.remove('hidden');
+            quizSection.classList.add('hidden');
+            
+            // সেমিস্টার টাইটেল সেট
+            semTitle.innerText = sem === '3rd' ? '৩য় সেমিস্টার' : '৪র্থ সেমিস্টার';
+            
+            // সাবজেক্ট লোড
+            loadSubjects(sem);
+        }
+
+        // সাবজেক্ট লোড
+        async function loadSubjects(sem) {
+            subjectsGrid.innerHTML = `
+                <div class="col-span-full text-center py-12">
+                    <div class="loading-spinner mx-auto mb-4"></div>
+                    <p class="text-white">সাবজেক্ট লোড হচ্ছে...</p>
+                </div>
+            `;
+
+            try {
+                const path = `./data/${sem}_sem/demo.json`;
+                const res = await fetch(path);
+                
+                if (!res.ok) throw new Error("ফাইল পাওয়া যায়নি");
+                
+                const data = await res.json();
+                
+                // সাবজেক্ট গ্রিড রেন্ডার
+                subjectsGrid.innerHTML = '';
+                
+                data.forEach((subject, index) => {
+                    const subjectCard = document.createElement('div');
+                    subjectCard.className = 'glass-card p-6 rounded-2xl cursor-pointer group slide-in-left';
+                    subjectCard.style.animationDelay = `${index * 0.1}s`;
+                    subjectCard.onclick = () => startQuiz(subject.subject, data);
+                    
+                    subjectCard.innerHTML = `
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
+                                <i class="fas ${getSubjectIcon(subject.subject)} text-white text-xl"></i>
+                            </div>
+                            <span class="bg-green-500 text-white text-xs px-3 py-1 rounded-full">${subject.total_questions} Questions</span>
+                        </div>
+                        <h4 class="text-xl font-bold text-gray-800 mb-2">${subject.subject}</h4>
+                        <p class="text-gray-500 text-sm mb-4">${subject.description || 'কম্পিউটার সাইন্স'}</p>
+                        
+                        <div class="flex items-center gap-4 text-sm text-gray-500">
+                            <span><i class="fas fa-star text-yellow-400"></i> ${subject.premium_questions} প্রিমিয়াম</span>
+                            <span><i class="fas fa-users text-blue-400"></i> ২৩০+ স্টুডেন্ট</span>
+                        </div>
+                        
+                        <div class="mt-4 pt-4 border-t border-gray-100 flex justify-between items-center">
+                            <span class="text-blue-500 font-semibold">এখনি শুরু করো</span>
+                            <i class="fas fa-arrow-right text-blue-500 group-hover:translate-x-2 transition-transform"></i>
+                        </div>
+                    `;
+                    
+                    subjectsGrid.appendChild(subjectCard);
+                });
+                
+            } catch (error) {
+                subjectsGrid.innerHTML = `
+                    <div class="col-span-full glass p-8 rounded-3xl text-center">
+                        <i class="fas fa-exclamation-triangle text-4xl text-yellow-400 mb-4"></i>
+                        <h4 class="text-xl font-bold text-gray-800 mb-2">ডাটা লোড করতে সমস্যা হয়েছে</h4>
+                        <p class="text-gray-500 mb-4">${error.message}</p>
+                        <button onclick="showSubjects('${sem}')" class="bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition-all">
+                            আবার চেষ্টা করুন
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        // সাবজেক্ট আইকন
+        function getSubjectIcon(subject) {
+            const icons = {
+                'Data Structure': 'fa-sitemap',
+                'Algorithm': 'fa-chart-line',
+                'Database': 'fa-database',
+                'Network': 'fa-network-wired',
+                'OOP': 'fa-cubes',
+                'Math': 'fa-calculator'
+            };
+            return icons[subject] || 'fa-book';
+        }
+
+        // কুইজ শুরু
+        async function startQuiz(subject, data) {
+            currentSubject = subject;
+            questions = data.find(d => d.subject === subject)?.questions || [];
+            
+            // সেকশন টগল
+            subjectSection.classList.add('hidden');
+            quizSection.classList.remove('hidden');
+            
+            // সাবজেক্ট নাম সেট
+            quizSubjectName.innerText = subject;
+            
+            // ব্যাক বাটন সেট
+            document.getElementById('back-to-sub-btn').onclick = () => showSubjects(currentSemester);
+            
+            // কুইজ রেন্ডার
+            renderQuiz();
+        }
+
+        // কুইজ রেন্ডার
+        function renderQuiz() {
             quizContainer.innerHTML = "";
+            
             questions.forEach((q, i) => {
                 const isLocked = i >= 5;
-                const div = document.createElement('div');
-                div.className = `glass p-6 rounded-3xl transition-all shadow-sm border border-white ${isLocked ? 'premium-lock' : ''}`;
+                const questionDiv = document.createElement('div');
+                questionDiv.className = `glass-card p-8 rounded-3xl transition-all ${isLocked ? 'premium-lock' : ''} slide-up`;
+                questionDiv.style.animationDelay = `${i * 0.1}s`;
                 
-                div.innerHTML = `
-                    <div class="flex items-center gap-2 mb-4">
-                        <span class="bg-blue-100 text-blue-600 text-xs font-bold px-2 py-1 rounded-lg">QUESTION ${i+1}</span>
+                // প্রশ্ন নম্বর
+                const questionNumber = i + 1;
+                
+                questionDiv.innerHTML = `
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl text-white font-bold flex items-center justify-center">
+                            ${questionNumber}
+                        </span>
+                        <span class="text-sm text-blue-500 font-semibold">প্রশ্ন ${questionNumber} / ${questions.length}</span>
                     </div>
-                    <h4 class="text-lg font-bold text-gray-800 mb-6">${q.question}</h4>
+                    
+                    <h4 class="text-xl font-bold text-gray-800 mb-6">${q.question}</h4>
+                    
                     <div class="grid gap-3">
-                        ${q.options.map(opt => `
-                            <button onclick="handleCheck(this, '${q.answer}', '${q.expert_note}')" 
-                                class="ans-btn w-full text-left p-4 rounded-2xl border border-gray-100 bg-white/50 hover:bg-blue-50 hover:border-blue-200 transition-all">
+                        ${q.options.map((opt, optIndex) => `
+                            <button onclick="handleAnswer(this, '${q.answer}', '${q.expert_note}')" 
+                                class="ans-btn w-full text-left p-4 rounded-xl border-2 border-gray-100 hover:border-blue-500 hover:bg-blue-50 transition-all">
+                                <span class="inline-block w-6 h-6 rounded-full bg-gray-100 text-gray-600 text-sm font-bold mr-3 text-center leading-6">
+                                    ${String.fromCharCode(65 + optIndex)}
+                                </span>
                                 ${opt}
                             </button>
                         `).join('')}
                     </div>
-                    <div class="note-box hidden mt-6 p-5 bg-blue-50 rounded-2xl border-l-4 border-blue-400">
-                        <p class="text-xs font-bold text-blue-500 uppercase tracking-widest mb-1">Expert Note</p>
-                        <p class="text-gray-700 text-sm leading-relaxed">${q.expert_note}</p>
+                    
+                    <div class="note-box hidden mt-6 p-6 bg-blue-50 rounded-2xl border-l-4 border-blue-500">
+                        <div class="flex items-center gap-2 mb-2">
+                            <i class="fas fa-lightbulb text-yellow-500"></i>
+                            <span class="text-xs font-bold text-blue-500 uppercase tracking-widest">Expert Note</span>
+                        </div>
+                        <p class="text-gray-700">${q.expert_note}</p>
                     </div>
                 `;
-
-                quizContainer.appendChild(div);
-
-                if (i === 4 && questions.length > 5) {
-                    const lockDiv = document.createElement('div');
-                    lockDiv.className = "py-10 text-center";
-                    lockDiv.innerHTML = `
-                        <button onclick="modal.classList.remove('hidden')" class="bg-gray-900 text-white px-8 py-4 rounded-2xl font-bold shadow-2xl hover:scale-105 transition-transform">
-                            🔒 Unlock Remaining ${questions.length - 5} Questions
-                        </button>
-                    `;
-                    quizContainer.appendChild(lockDiv);
-                }
+                
+                quizContainer.appendChild(questionDiv);
             });
+
+            // আনলক বাটন
+            if (questions.length > 5) {
+                const unlockDiv = document.createElement('div');
+                unlockDiv.className = "py-10 text-center slide-up";
+                unlockDiv.innerHTML = `
+                    <div class="glass p-8 rounded-3xl">
+                        <i class="fas fa-lock text-4xl text-yellow-400 mb-4"></i>
+                        <h4 class="text-2xl font-bold text-gray-800 mb-2">বাকি ${questions.length - 5} টি প্রশ্ন লক করা আছে</h4>
+                        <p class="text-gray-500 mb-6">প্রিমিয়াম মেম্বার হয়ে সব প্রশ্ন আনলক করো</p>
+                        <button onclick="showPremiumPopup()" class="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-4 rounded-2xl font-bold hover:shadow-xl transform hover:scale-105 transition-all">
+                            <i class="fas fa-crown mr-2"></i>
+                            আনলক করুন (মাত্র ৯ টাকা)
+                        </button>
+                    </div>
+                `;
+                quizContainer.appendChild(unlockDiv);
+            }
         }
 
-        function handleCheck(btn, correct, note) {
-            const parent = btn.closest('.glass');
-            const noteBox = parent.querySelector('.note-box');
-            const allBtns = parent.querySelectorAll('.ans-btn');
-
-            // সব বাটন ডিজেবল করে দাও যাতে একবারই ক্লিক করা যায়
-            allBtns.forEach(b => b.style.pointerEvents = "none");
-
-            if (btn.innerText.trim() === correct.trim()) {
-                btn.classList.replace('bg-white/50', 'bg-green-100');
-                btn.classList.replace('border-gray-100', 'border-green-400');
-                btn.innerHTML += " <i class='fas fa-check-circle float-right'></i>";
-            } else {
-                btn.classList.replace('bg-white/50', 'bg-red-100');
-                btn.classList.replace('border-gray-100', 'border-red-400');
-                btn.innerHTML += " <i class='fas fa-times-circle float-right'></i>";
-                
-                // সঠিক উত্তরটাও হাইলাইট করে দাও
-                allBtns.forEach(b => {
-                    if(b.innerText.trim() === correct.trim()) {
-                        b.classList.replace('bg-white/50', 'bg-green-50');
-                        b.classList.add('text-green-600', 'font-semibold');
-                    }
-                });
+        // উত্তর চেক
+        function handleAnswer(btn, correct, note) {
+            const questionDiv = btn.closest('.glass-card');
+            const noteBox = questionDiv.querySelector('.note-box');
+            const allBtns = questionDiv.querySelectorAll('.ans-btn');
+            
+            // সব বাটন ডিজেবল
+            allBtns.forEach(b => b.disabled = true);
+            
+            // সঠিক উত্তর হাইলাইট
+            allBtns.forEach(b => {
+                if (b.innerText.includes(correct)) {
+                    b.classList.add('border-green-500', 'bg-green-50');
+                    b.innerHTML += ' <i class="fas fa-check text-green-500 float-right"></i>';
+                }
+            });
+            
+            // যদি ভুল উত্তর হয়
+            if (!btn.innerText.includes(correct)) {
+                btn.classList.add('border-red-500', 'bg-red-50');
+                btn.innerHTML += ' <i class="fas fa-times text-red-500 float-right"></i>';
             }
+            
+            // নোট দেখাও
             noteBox.classList.remove('hidden');
         }
 
-        function closeModal() { modal.classList.add('hidden'); }
+        // প্রিমিয়াম পপআপ দেখান
+        function showPremiumPopup() {
+            modal.classList.remove('hidden');
+        }
+
+        // পপআপ বন্ধ করুন
+        function closeModal() {
+            modal.classList.add('hidden');
+        }
+
+        // লগইন পপআপ দেখান
+        function showLoginPopup() {
+            loginModal.classList.remove('hidden');
+        }
+
+        // লগইন পপআপ বন্ধ করুন
+        function closeLoginModal() {
+            loginModal.classList.add('hidden');
+        }
+
+        // পেমেন্ট ইনফো পাঠান
+        function sendPaymentInfo() {
+            const email = document.getElementById('userEmail').value;
+            const trxId = document.getElementById('trxId').value;
+
+            if (!email || !trxId) {
+                alert('মামা, ইমেইল এবং TrxID দুটোই দাও!');
+                return;
+            }
+
+            const message = `New Payment Request:%0A📧 Email: ${email}%0A💰 TrxID: ${trxId}`;
+            window.open(`https://wa.me/88019XXXXXXXX?text=${message}`, '_blank');
+            
+            alert('TrxID পাঠানো হয়েছে! অ্যাডমিন ভেরিফাই করে একটিভ করে দেবে।');
+            closeModal();
+        }
+
+        // লোড হওয়ার সময় অ্যানিমেটেড ব্যাকগ্রাউন্ড তৈরি
+        createAnimatedBg();
+
+        // কীবোর্ড ইভেন্ট (Esc কী চাপলে পপআপ বন্ধ হবে)
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+                closeLoginModal();
+            }
+        });
+
+        // পপআপের বাইরে ক্লিক করলে বন্ধ হবে
+        window.onclick = function(event) {
+            if (event.target === modal) {
+                closeModal();
+            }
+            if (event.target === loginModal) {
+                closeLoginModal();
+            }
+        }
     </script>
 </body>
 </html>
