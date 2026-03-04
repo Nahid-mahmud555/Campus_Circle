@@ -1,174 +1,878 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Campus Circle | Your Semester Partner</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>Campus Circle - Semester Partner</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
-        body { font-family: 'Poppins', sans-serif; background: #f4f7fe; scroll-behavior: smooth; }
-        .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.3); }
-        .coming-soon { filter: grayscale(1); opacity: 0.5; cursor: not-allowed; position: relative; }
-        .coming-soon::after { content: "Coming Soon"; position: absolute; top: 10px; right: 10px; background: #64748b; color: white; padding: 2px 8px; font-size: 10px; border-radius: 5px; }
-        .premium-lock { background: linear-gradient(rgba(255,255,255,0), rgba(244,247,254,1)); pointer-events: none; }
-        .whatsapp-float { position: fixed; bottom: 20px; right: 20px; background: #25d366; color: white; padding: 15px 25px; border-radius: 50px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); z-index: 1000; transition: 0.3s; }
-        .whatsapp-float:hover { transform: scale(1.05); }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .login-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white !important;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            transition: transform 0.3s;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            color: white !important;
+        }
+
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            width: fit-content;
+        }
+
+        .back-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* Banner */
+        .banner {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            margin-bottom: 3rem;
+        }
+
+        .banner h1 {
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .banner p {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.9);
+        }
+
+        /* Loading Spinner */
+        .loading {
+            text-align: center;
+            color: white;
+            padding: 3rem;
+            font-size: 1.2rem;
+        }
+
+        .spinner {
+            border: 4px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top: 4px solid white;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 1rem auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Error Message */
+        .error {
+            background: #ff4757;
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        /* Semester Grid */
+        .semester-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .semester-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .semester-card.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .semester-card.coming-soon {
+            opacity: 0.7;
+            filter: grayscale(0.8);
+            cursor: not-allowed;
+            background: #f0f0f0;
+        }
+
+        .coming-soon-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ff4757;
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .semester-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .semester-card p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Subjects Grid */
+        .page-title {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .subject-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 2px solid transparent;
+        }
+
+        .subject-card:hover {
+            transform: translateY(-5px);
+            border-color: #667eea;
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+        }
+
+        .subject-card h3 {
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .subject-card .code {
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .subject-card .teacher {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .subject-stats {
+            display: flex;
+            justify-content: space-between;
+            color: #888;
+            font-size: 0.9rem;
+            border-top: 1px solid #eee;
+            padding-top: 1rem;
+        }
+
+        /* Materials Grid */
+        .materials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .material-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 2px solid transparent;
+        }
+
+        .material-card:hover {
+            transform: translateY(-5px);
+            border-color: #667eea;
+        }
+
+        .material-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .material-card h3 {
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .material-card p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .material-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #667eea;
+            font-weight: 600;
+            border-top: 1px solid #eee;
+            padding-top: 1rem;
+        }
+
+        /* Premium Card */
+        .premium-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .premium-card p {
+            color: rgba(255,255,255,0.9);
+        }
+
+        .premium-card .material-meta {
+            color: white;
+            border-top-color: rgba(255,255,255,0.2);
+        }
+
+        .unlock-btn {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 1rem;
+            width: 100%;
+        }
+
+        .unlock-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Premium Popup */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .popup {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            animation: popIn 0.5s ease;
+        }
+
+        .popup h2 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .popup .price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .features {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .features li {
+            list-style: none;
+            margin-bottom: 0.8rem;
+            color: #333;
+        }
+
+        .features li:before {
+            content: "✓";
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .payment-details {
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .payment-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #667eea;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: white;
+            border-radius: 10px;
+            border: 2px dashed #667eea;
+        }
+
+        .payment-input {
+            width: 100%;
+            padding: 1rem;
+            margin: 1rem 0;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .payment-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .payment-btn {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s;
+            width: 100%;
+        }
+
+        .payment-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .close-popup {
+            margin-top: 1rem;
+            color: #666;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        /* Floating WhatsApp Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            z-index: 1000;
+            animation: bounce 2s infinite;
+            transition: all 0.3s;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.6);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .banner h1 {
+                font-size: 2rem;
+            }
+            
+            .semester-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .whatsapp-float {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+            }
+        }
     </style>
 </head>
 <body>
-
-    <nav class="p-6 flex justify-between items-center max-w-7xl mx-auto">
-        <h1 class="text-2xl font-bold text-blue-600">Campus<span class="text-gray-800">Circle</span></h1>
-        <div id="user-status" class="text-sm font-semibold text-gray-500">Guest Mode</div>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo" onclick="navigateTo('home')">Campus Circle</div>
+            <div class="nav-links">
+                <a onclick="navigateTo('home')">হোম</a>
+                <a onclick="navigateTo('premium')">প্রিমিয়াম</a>
+                <a onclick="showLoginPopup()" class="login-btn">লগইন</a>
+            </div>
+        </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto px-6">
-        <section id="home-section">
-            <header class="text-center py-12">
-                <h2 class="text-4xl md:text-6xl font-extrabold text-gray-900 mb-4">Campus Circle: Your All-in-One Semester Partner</h2>
-                <p class="text-gray-600">Past papers, MCQ banks, short notes — organised by semester.</p>
-            </header>
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-20">
-                <div onclick="openSemester('3rd')" class="glass p-8 rounded-3xl cursor-pointer hover:shadow-xl transition group">
-                    <h3 class="text-xl font-bold group-hover:text-blue-600">3rd Semester</h3>
-                    <p class="text-sm text-gray-500">CSE Department</p>
-                </div>
-                <div onclick="openSemester('4th')" class="glass p-8 rounded-3xl cursor-pointer hover:shadow-xl transition group">
-                    <h3 class="text-xl font-bold group-hover:text-blue-600">4th Semester</h3>
-                    <p class="text-sm text-gray-500">CSE Department</p>
-                </div>
-                <div class="glass p-8 rounded-3xl coming-soon"><h3 class="text-xl font-bold">5th Semester</h3></div>
-                <div class="glass p-8 rounded-3xl coming-soon"><h3 class="text-xl font-bold">6th Semester</h3></div>
-            </div>
-        </section>
-
-        <section id="subject-section" class="hidden py-10">
-            <button onclick="showHome()" class="mb-6 text-blue-600 font-bold"><i class="fas fa-arrow-left"></i> Back to Semesters</button>
-            <h2 id="selected-sem-title" class="text-3xl font-bold mb-8"></h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div onclick="openMCQ()" class="glass p-6 rounded-3xl cursor-pointer border-2 border-transparent hover:border-blue-500">
-                    <i class="fas fa-brain text-3xl text-blue-500 mb-4"></i>
-                    <h4 class="text-xl font-bold">MCQ Bank</h4>
-                    <p class="text-sm text-gray-500">AI-Curated Practice Questions</p>
-                </div>
-                <div class="glass p-6 rounded-3xl opacity-50 cursor-not-allowed">
-                    <i class="fas fa-file-pdf text-3xl text-red-500 mb-4"></i>
-                    <h4 class="text-xl font-bold">Past Papers</h4>
-                </div>
-                <div class="glass p-6 rounded-3xl opacity-50 cursor-not-allowed">
-                    <i class="fas fa-notes-medical text-3xl text-yellow-500 mb-4"></i>
-                    <h4 class="text-xl font-bold">Short Notes</h4>
-                </div>
-            </div>
-        </section>
-
-        <section id="mcq-section" class="hidden py-10">
-            <button onclick="openSemester('3rd')" class="mb-6 text-blue-600 font-bold"><i class="fas fa-arrow-left"></i> Back to Subjects</button>
-            <div id="mcq-container" class="space-y-6 max-w-3xl mx-auto"></div>
-        </section>
-    </main>
-
-    <div id="payment-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-6 z-[2000]">
-        <div class="bg-white p-8 rounded-3xl max-w-md w-full text-center">
-            <i class="fas fa-lock text-5xl text-red-500 mb-4"></i>
-            <h3 class="text-2xl font-bold mb-2">মামা, প্রিমিয়াম লাগবে!</h3>
-            <p class="text-gray-600 mb-6">পুরো ৫০০+ এমসিকিউ আনলক করতে মাত্র ৯ টাকা পেমেন্ট করো।</p>
-            <div class="bg-blue-50 p-4 rounded-xl mb-6 text-left text-sm">
-                <p><strong>Bkash/Nagad:</strong> 017XXXXXXXX</p>
-            </div>
-            <a href="https://wa.me/YOUR_NUMBER" class="block bg-green-500 text-white py-3 rounded-xl font-bold">WhatsApp TrxID</a>
-            <button onclick="closeModal()" class="mt-4 text-gray-400 text-sm">পরে করবো</button>
+    <!-- Main Content Container -->
+    <div class="container" id="mainContent">
+        <div class="loading">
+            <div class="spinner"></div>
+            <p>ডাটা লোড হচ্ছে...</p>
         </div>
     </div>
 
-    <a href="https://wa.me/YOUR_GROUP_LINK" class="whatsapp-float font-bold"><i class="fab fa-whatsapp"></i> মামা, গ্রুপে আয়!</a>
+    <!-- Floating WhatsApp Button -->
+    <a href="#" class="whatsapp-float" id="whatsappBtn" target="_blank">
+        <i>💬</i>
+        <span>মামা, গ্রুপে আয়!</span>
+    </a>
+
+    <!-- Premium Popup -->
+    <div class="popup-overlay" id="premiumPopup">
+        <div class="popup">
+            <h2>প্রিমিয়াম মেম্বার হও!</h2>
+            <div class="price" id="premiumPrice">মাত্র ৯ টাকা</div>
+            
+            <div class="features" id="premiumFeatures">
+                <li>৫০০+ MCQ ব্যাংক</li>
+                <li>সকল সাবজেক্টের নোট</li>
+                <li>পাস্ট ইয়ার প্রশ্ন</li>
+                <li>এক্সপার্ট সলিউশন</li>
+            </div>
+
+            <div class="payment-details">
+                <h3>পেমেন্ট ইনফরমেশন</h3>
+                <p>বিকাশ/নগদ</p>
+                <div class="payment-number" id="paymentNumber">019XXXXXXXX</div>
+            </div>
+
+            <input type="email" class="payment-input" id="userEmail" placeholder="তোমার ইমেইল" required>
+            <input type="text" class="payment-input" id="trxId" placeholder="TrxID" required>
+
+            <button class="payment-btn" onclick="sendPaymentInfo()">
+                হোয়াটসঅ্যাপে TrxID পাঠাও
+            </button>
+
+            <div class="close-popup" onclick="closePopup()">পরে করবো</div>
+        </div>
+    </div>
+
+    <!-- Login Popup -->
+    <div class="popup-overlay" id="loginPopup">
+        <div class="popup">
+            <h2>লগইন করুন</h2>
+            <input type="email" class="payment-input" id="loginEmail" placeholder="ইমেইল" required>
+            <input type="password" class="payment-input" id="loginPassword" placeholder="পাসওয়ার্ড" required>
+            <button class="payment-btn" style="background: linear-gradient(135deg, #667eea, #764ba2);" onclick="login()">
+                লগইন
+            </button>
+            <div class="close-popup" onclick="closeLoginPopup()">ক্লোজ</div>
+        </div>
+    </div>
 
     <script>
-        const homeSection = document.getElementById('home-section');
-        const subjectSection = document.getElementById('subject-section');
-        const mcqSection = document.getElementById('mcq-section');
-        const paymentModal = document.getElementById('payment-modal');
+        // গ্লোবাল ভেরিয়েবল
+        let appData = null;
+        let currentPage = 'home';
+        let selectedSemester = null;
+        let selectedSubject = null;
+        let isPremium = false;
 
-        function showHome() {
-            subjectSection.classList.add('hidden');
-            homeSection.classList.remove('hidden');
-            mcqSection.classList.add('hidden');
-        }
-
-        function openSemester(sem) {
-            homeSection.classList.add('hidden');
-            mcqSection.classList.add('hidden');
-            subjectSection.classList.remove('hidden');
-            document.getElementById('selected-sem-title').innerText = sem + " Semester (CSE)";
-        }
-
-        async function openMCQ() {
-            subjectSection.classList.add('hidden');
-            mcqSection.classList.remove('hidden');
-            
-            // GitHub Path Logic
-            const filePath = './data/3rd_sem/demo.json'; 
-
+        // ডাটা লোড ফাংশন
+        async function loadData() {
             try {
-                const response = await fetch(filePath);
-                if (!response.ok) throw new Error("File not found");
-                const questions = await response.json();
-                renderQuestions(questions);
-            } catch (e) {
-                console.error(e);
-                alert("মামা, demo.json ফাইলটা খুঁজে পাচ্ছি না! পাথ: " + filePath);
+                // data/3rd_sem/demo.json থেকে ডাটা ফেচ
+                const response = await fetch('data/3rd_sem/demo.json');
+                if (!response.ok) {
+                    throw new Error('ডাটা লোড করা যায়নি');
+                }
+                appData = await response.json();
+                
+                // হোয়াটসঅ্যাপ বাটন আপডেট
+                if (appData.config?.whatsappNumber) {
+                    document.getElementById('whatsappBtn').href = `https://wa.me/${appData.config.whatsappNumber}?text=মামা,%20গ্রুপে%20আছি!`;
+                }
+                
+                // পেমেন্ট নম্বর আপডেট
+                if (appData.config?.paymentNumber) {
+                    document.getElementById('paymentNumber').textContent = appData.config.paymentNumber;
+                }
+                
+                // হোম পেজ লোড
+                navigateTo('home');
+            } catch (error) {
+                console.error('Error loading data:', error);
+                document.getElementById('mainContent').innerHTML = `
+                    <div class="error">
+                        <h3>ডাটা লোড করতে সমস্যা হয়েছে</h3>
+                        <p>${error.message}</p>
+                        <button onclick="loadData()" style="margin-top:1rem; padding:0.5rem 2rem; background:white; border:none; border-radius:50px; cursor:pointer;">আবার চেষ্টা করুন</button>
+                    </div>
+                `;
             }
         }
 
-        function renderQuestions(questions) {
-            const container = document.getElementById('mcq-container');
-            container.innerHTML = "";
+        // নেভিগেশন ফাংশন
+        function navigateTo(page, data = null) {
+            if (!appData) return;
+            
+            currentPage = page;
+            
+            if (page === 'home') {
+                selectedSemester = null;
+                selectedSubject = null;
+                loadHomePage();
+            } else if (page === 'semester') {
+                selectedSemester = data;
+                loadSemesterPage(data);
+            } else if (page === 'subject') {
+                selectedSubject = data;
+                loadSubjectPage(data);
+            } else if (page === 'premium') {
+                showPremiumPopup();
+            }
+        }
 
-            questions.forEach((q, index) => {
-                const isLocked = index >= 5; 
+        // হোম পেজ লোড
+        function loadHomePage() {
+            const content = document.getElementById('mainContent');
+            content.innerHTML = `
+                <div class="banner">
+                    <h1>${appData.banner?.title || 'Campus Circle: Your All-in-One Semester Partner'}</h1>
+                    <p>${appData.banner?.subtitle || 'তৃতীয় ও চতুর্থ সেমিস্টারের জন্য সবকিছু এক জায়গায়'}</p>
+                </div>
+                <h2 class="page-title">সেমিস্টার সিলেক্ট করো</h2>
+                <div class="semester-grid" id="semesterGrid"></div>
+            `;
+
+            const grid = document.getElementById('semesterGrid');
+            appData.semesters.forEach(sem => {
                 const card = document.createElement('div');
-                card.className = `glass p-6 rounded-3xl transition ${isLocked ? 'premium-lock opacity-40' : ''}`;
+                card.className = `semester-card ${sem.status === 'active' ? 'active' : 'coming-soon'}`;
                 
+                if (sem.status === 'active') {
+                    card.onclick = () => navigateTo('semester', sem.id);
+                }
+
                 card.innerHTML = `
-                    <p class="text-sm font-bold text-blue-500">Question ${index + 1}</p>
-                    <h4 class="text-lg font-bold mt-2 text-gray-800">${q.question}</h4>
-                    <div class="mt-4 space-y-2">
-                        ${q.options.map(opt => `<button onclick="handleAns(this, '${q.answer}', '${q.expert_note}')" class="w-full text-left p-3 rounded-xl border border-gray-200 hover:bg-blue-50 transition">${opt}</button>`).join('')}
-                    </div>
-                    <div class="explanation hidden mt-4 p-4 bg-green-50 rounded-xl border-l-4 border-green-500">
-                        <p class="text-xs font-bold text-green-700 uppercase">Expert Note:</p>
-                        <p class="text-sm text-gray-700">${q.expert_note}</p>
-                    </div>
+                    <h3>${sem.name}</h3>
+                    <p>${sem.description || ''}</p>
+                    ${sem.status !== 'active' ? '<span class="coming-soon-badge">Coming Soon</span>' : ''}
                 `;
 
-                if(isLocked && index === 5) {
-                    const lockBtn = document.createElement('button');
-                    lockBtn.className = "w-full py-4 mt-4 bg-gray-900 text-white rounded-2xl font-bold shadow-xl relative z-50";
-                    lockBtn.innerHTML = "🔒 Unlock All Questions (৳9)";
-                    lockBtn.onclick = (e) => {
-                        e.stopPropagation();
-                        paymentModal.classList.remove('hidden');
-                    };
-                    container.appendChild(lockBtn);
-                }
-                container.appendChild(card);
+                grid.appendChild(card);
             });
         }
 
-        function handleAns(btn, correct, note) {
-            const parent = btn.parentElement.parentElement;
-            const explanation = parent.querySelector('.explanation');
-            if(btn.innerText.trim() === correct.trim()) {
-                btn.classList.add('bg-green-100', 'border-green-500', 'text-green-700');
-            } else {
-                btn.classList.add('bg-red-100', 'border-red-500', 'text-red-700');
+        // সেমিস্টার পেজ লোড
+        function loadSemesterPage(semesterId) {
+            const content = document.getElementById('mainContent');
+            const subjects = appData.subjects[semesterId];
+            const semester = appData.semesters.find(s => s.id === semesterId);
+
+            if (!subjects || subjects.length === 0) {
+                content.innerHTML = `
+                    <div class="back-btn" onclick="navigateTo('home')">
+                        ← ব্যাক টু হোম
+                    </div>
+                    <div class="error">এই সেমিস্টারে কোনো সাবজেক্ট নেই</div>
+                `;
+                return;
             }
-            explanation.classList.remove('hidden');
+
+            content.innerHTML = `
+                <div class="back-btn" onclick="navigateTo('home')">
+                    ← ব্যাক টু হোম
+                </div>
+                <h2 class="page-title">${semester.name} - সাবজেক্ট সমূহ</h2>
+                <p class="page-subtitle">তোমার পছন্দের সাবজেক্ট সিলেক্ট করো</p>
+                <div class="subjects-grid" id="subjectsGrid"></div>
+            `;
+
+            const grid = document.getElementById('subjectsGrid');
+            subjects.forEach(sub => {
+                const card = document.createElement('div');
+                card.className = 'subject-card';
+                card.onclick = () => navigateTo('subject', sub.id);
+                card.innerHTML = `
+                    <h3>${sub.name}</h3>
+                    <div class="code">${sub.code || ''}</div>
+                    <div class="teacher">👨‍🏫 ${sub.teacher || 'TBA'}</div>
+                    <div class="subject-stats">
+                        <span>📚 ${sub.materials || 0} ম্যাটেরিয়ালস</span>
+                        <span>👥 ${sub.students || 0}+ স্টুডেন্ট</span>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
         }
 
-        function closeModal() { paymentModal.classList.add('hidden'); }
+        // সাবজেক্ট পেজ লোড
+        function loadSubjectPage(subjectId) {
+            const content = document.getElementById('mainContent');
+            const subject = findSubjectById(subjectId);
+            const materials = appData.materials?.[subjectId] || {
+                pastPapers: [],
+                notes: [],
+                mcqs: { total: 0, premiumCount: 0, freeCount: 0 }
+            };
+
+            content.innerHTML = `
+                <div class="back-btn" onclick="navigateTo('semester', ${selectedSemester})">
+                    ← ব্যাক টু সেমিস্টার
+                </div>
+                <h2 class="page-title">${subject.name}</h2>
+                <p class="page-subtitle">${subject.code || ''} - ${subject.teacher || ''}</p>
+                
+                <div class="materials-grid" id="materialsGrid"></div>
+            `;
+
+            const grid = document.getElementById('materialsGrid');
+            
+            // পাস্ট পেপারস
+            const pastPaperCard = document.createElement('div');
+            pastPaperCard.className = 'material-card';
+            pastPaperCard.onclick = () => alert('পাস্ট পেপারস শীঘ্রই আসছে');
+            pastPaperCard.innerHTML = `
+                <div class="material-icon">📄</div>
+                <h3>Past Papers</h3>
+                <p>বিগত বছরের প্রশ্ন সমাধান সহ</p>
+                <div class="material-meta">
+                    <span>📅 ${materials.pastPapers?.length || 0} টি</span>
+                    <span>🔓 ${materials.pastPapers?.filter(p => !p.premium).length || 0} ফ্রি</span>
+                </div>
+            `;
+            grid.appendChild(pastPaperCard);
+
+            // শর্ট নোটস
+            const notesCard = document.createElement('div');
+            notesCard.className = 'material-card';
+            notesCard.onclick = () => alert('শর্ট নোটস শীঘ্রই আসছে');
+            notesCard.innerHTML = `
+                <div class="material-icon">📝</div>
+                <h3>Short Notes</h3>
+                <p>ইম্পর্ট্যান্ট টপিকের নোট</p>
+                <div class="material-meta">
+                    <span>📚 ${materials.notes?.length || 0} টি</span>
+                    <span>📖 ${materials.notes?.filter(n => !n.premium).length || 0} ফ্রি</span>
+                </div>
+            `;
+            grid.appendChild(notesCard);
+
+            // MCQ ব্যাংক
+            const mcqCard = document.createElement('div');
+            mcqCard.className = 'material-card premium-card';
+            mcqCard.onclick = () => showPremiumPopup();
+            mcqCard.innerHTML = `
+                <div class="material-icon">❓</div>
+                <h3>MCQ Bank</h3>
+                <p>এআই-কিউরেটেড কুইজ</p>
+                <div class="material-meta">
+                    <span>📊 ${materials.mcqs?.total || 0} টি MCQ</span>
+                    <span>⭐ ${materials.mcqs?.premiumCount || 0} প্রিমিয়াম</span>
+                </div>
+                <button class="unlock-btn" onclick="showPremiumPopup()">আনলক করুন</button>
+            `;
+            grid.appendChild(mcqCard);
+        }
+
+        // হেল্পার ফাংশন - সাবজেক্ট খুঁজে বের করা
+        function findSubjectById(subjectId) {
+            for (let sem in appData.subjects) {
+                const subject = appData.subjects[sem].find(s => s.id === subjectId);
+                if (subject) return subject;
+            }
+            return { name: 'Unknown', code: '', teacher: '' };
+        }
+
+        // পপআপ ফাংশন
+        function showPremiumPopup() {
+            document.getElementById('premiumPopup').style.display = 'flex';
+        }
+
+        function closePopup() {
+            document.getElementById('premiumPopup').style.display = 'none';
+        }
+
+        function showLoginPopup() {
+            document.getElementById('loginPopup').style.display = 'flex';
+        }
+
+        function closeLoginPopup() {
+            document.getElementById('loginPopup').style.display = 'none';
+        }
+
+        function login() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            if (!email || !password) {
+                alert('ইমেইল এবং পাসওয়ার্ড দিন');
+                return;
+            }
+
+            // চেক করি ইউজার প্রিমিয়াম কিনা
+            const user = appData.users?.find(u => u.email === email);
+            isPremium = user?.premium || false;
+            
+            alert(`লগইন সফল হয়েছে${isPremium ? ' (প্রিমিয়াম ইউজার)' : ''}`);
+            closeLoginPopup();
+        }
+
+        function sendPaymentInfo() {
+            const email = document.getElementById('userEmail').value;
+            const trxId = document.getElementById('trxId').value;
+
+            if (!email || !trxId) {
+                alert('ইমেইল এবং TrxID দিন');
+                return;
+            }
+
+            const message = `New Payment Request:%0AEmail: ${email}%0ATrxID: ${trxId}`;
+            const whatsappUrl = `https://wa.me/${appData.config?.whatsappNumber || '88019XXXXXXXX'}?text=${message}`;
+            window.open(whatsappUrl, '_blank');
+            
+            alert('TrxID পাঠানো হয়েছে। অ্যাডমিন ভেরিফাই করে একটিভ করবে।');
+            closePopup();
+        }
+
+        // ডাটা লোড করা শুরু
+        loadData();
     </script>
 </body>
 </html>
