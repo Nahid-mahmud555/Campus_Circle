@@ -3,40 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Campus Circle | Your Semester Partner</title>
+    <title>Campus Circle | Fixed</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
         body { font-family: 'Poppins', sans-serif; background: #f4f7fe; }
         .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.3); }
-        .coming-soon { filter: grayscale(1); opacity: 0.5; cursor: not-allowed; position: relative; }
-        .premium-lock { opacity: 0.4; pointer-events: none; user-select: none; }
+        .coming-soon { filter: grayscale(1); opacity: 0.5; cursor: not-allowed; }
+        .premium-lock { opacity: 0.4; pointer-events: none; filter: blur(1px); }
         .whatsapp-float { position: fixed; bottom: 20px; right: 20px; background: #25d366; color: white; padding: 15px 25px; border-radius: 50px; z-index: 1000; }
     </style>
 </head>
 <body>
 
     <nav class="p-6 flex justify-between items-center max-w-7xl mx-auto">
-        <h1 class="text-2xl font-bold text-blue-600">Campus<span class="text-gray-800">Circle</span></h1>
+        <h1 onclick="location.reload()" class="text-2xl font-bold text-blue-600 cursor-pointer">Campus<span class="text-gray-800">Circle</span></h1>
     </nav>
 
     <main class="max-w-7xl mx-auto px-6">
         
         <section id="home-section">
             <header class="text-center py-12">
-                <h2 class="text-4xl font-extrabold text-gray-900 mb-4">Campus Circle</h2>
-                <p class="text-gray-600 italic">Everything you need, organised by semester.</p>
+                <h2 class="text-4xl font-extrabold text-gray-900 mb-4">Select Your Semester</h2>
+                <p class="text-gray-600">Choose your semester to start practicing.</p>
             </header>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div onclick="showSubjects('3rd')" class="glass p-8 rounded-3xl cursor-pointer hover:shadow-lg transition">
+                <div onclick="showSubjects('3rd')" class="glass p-8 rounded-3xl cursor-pointer hover:shadow-xl border-2 border-transparent hover:border-blue-500 transition">
                     <h3 class="text-xl font-bold">3rd Semester</h3>
-                    <p class="text-sm text-blue-500">Available Now</p>
+                    <p class="text-sm text-blue-500">Active</p>
                 </div>
-                <div onclick="showSubjects('4th')" class="glass p-8 rounded-3xl cursor-pointer hover:shadow-lg transition">
+                <div onclick="showSubjects('4th')" class="glass p-8 rounded-3xl cursor-pointer hover:shadow-xl border-2 border-transparent hover:border-blue-500 transition">
                     <h3 class="text-xl font-bold">4th Semester</h3>
-                    <p class="text-sm text-blue-500">Available Now</p>
+                    <p class="text-sm text-blue-500">Active</p>
                 </div>
                 <div class="glass p-8 rounded-3xl coming-soon"><h3 class="text-xl font-bold">5th Semester</h3></div>
                 <div class="glass p-8 rounded-3xl coming-soon"><h3 class="text-xl font-bold">6th Semester</h3></div>
@@ -44,38 +44,47 @@
         </section>
 
         <section id="subject-section" class="hidden py-10">
-            <button onclick="goToHome()" class="mb-6 text-blue-600"><i class="fas fa-arrow-left"></i> Back</button>
+            <button onclick="goToHome()" class="mb-6 text-blue-600 font-bold"><i class="fas fa-arrow-left"></i> Back to Semesters</button>
             <h2 id="sem-title" class="text-3xl font-bold mb-8"></h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div onclick="loadQuiz()" class="glass p-6 rounded-3xl cursor-pointer border-2 border-transparent hover:border-blue-500">
+                <div onclick="startQuiz()" class="glass p-6 rounded-3xl cursor-pointer border-2 border-transparent hover:border-blue-500">
                     <i class="fas fa-brain text-3xl text-blue-500 mb-4"></i>
                     <h4 class="text-xl font-bold">MCQ Bank</h4>
+                    <p class="text-sm text-gray-500">Practice with Expert Notes</p>
                 </div>
             </div>
         </section>
 
         <section id="quiz-section" class="hidden py-10">
-            <button onclick="showSubjects('3rd')" class="mb-6 text-blue-600"><i class="fas fa-arrow-left"></i> Back</button>
-            <div id="quiz-container" class="max-w-2xl mx-auto space-y-6"></div>
+            <button id="back-to-sub-btn" class="mb-6 text-blue-600 font-bold"><i class="fas fa-arrow-left"></i> Back to Subjects</button>
+            <div id="quiz-container" class="max-w-2xl mx-auto space-y-6 pb-20">
+                </div>
         </section>
 
     </main>
 
-    <div id="payment-modal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-[2000] p-4">
+    <div id="payment-modal" class="hidden fixed inset-0 bg-black/60 flex items-center justify-center z-[2000] p-4">
         <div class="bg-white p-8 rounded-3xl max-w-sm w-full text-center">
-            <h3 class="text-2xl font-bold mb-4">মামা, প্রিমিয়াম লাগবে!</h3>
-            <p class="mb-6">বিকাশে ৯ টাকা পাঠিয়ে TrxID টা হোয়াটসঅ্যাপে দে।</p>
-            <a href="https://wa.me/YOUR_NUMBER" class="block bg-green-500 text-white p-3 rounded-xl font-bold">WhatsApp Now</a>
-            <button onclick="closeModal()" class="mt-4 text-gray-400">Close</button>
+            <div class="w-16 h-16 bg-red-100 text-red-500 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">🔒</div>
+            <h3 class="text-2xl font-bold mb-2 text-gray-800">মামা, প্রিমিয়াম লাগবে!</h3>
+            <p class="text-gray-600 mb-6">পুরো ৫০০+ প্রশ্ন আনলক করতে নিচের নম্বরে ৯ টাকা সেন্ড মানি করো।</p>
+            <div class="bg-blue-50 p-4 rounded-xl mb-6 text-left border-l-4 border-blue-500">
+                <p class="font-bold text-gray-700 text-sm italic">বিকাশ/নগদ (Personal): 01XXXXXXXXX</p>
+            </div>
+            <a href="https://wa.me/YOUR_NUMBER" class="block bg-green-500 text-white p-4 rounded-2xl font-bold shadow-lg shadow-green-200">
+                <i class="fab fa-whatsapp"></i> WhatsApp Transaction ID
+            </a>
+            <button onclick="closeModal()" class="mt-4 text-gray-400 text-sm hover:underline">পরে কিনবো</button>
         </div>
     </div>
 
     <script>
-        // সেকশনগুলো ধরলাম
+        let currentSemester = "";
         const s1 = document.getElementById('home-section');
         const s2 = document.getElementById('subject-section');
         const s3 = document.getElementById('quiz-section');
         const modal = document.getElementById('payment-modal');
+        const quizContainer = document.getElementById('quiz-container');
 
         function goToHome() {
             s1.classList.remove('hidden');
@@ -84,62 +93,101 @@
         }
 
         function showSubjects(sem) {
+            currentSemester = sem;
             s1.classList.add('hidden');
             s2.classList.remove('hidden');
             s3.classList.add('hidden');
-            document.getElementById('sem-title').innerText = sem + " Semester";
+            document.getElementById('sem-title').innerText = sem + " Semester Content";
+            document.getElementById('back-to-sub-btn').onclick = () => showSubjects(sem);
         }
 
-        async function loadQuiz() {
+        async function startQuiz() {
             s2.classList.add('hidden');
             s3.classList.remove('hidden');
-            
-            const container = document.getElementById('quiz-container');
-            container.innerHTML = "<p>Loading questions, mama...</p>";
+            quizContainer.innerHTML = "<div class='text-center py-10'><i class='fas fa-spinner fa-spin text-3xl text-blue-500'></i><p class='mt-2'>মামা, ডাটা লোড হচ্ছে...</p></div>";
+
+            // ডাইনামিক পাথ: ৩য় হলে data/3rd_sem/demo.json, ৪র্থ হলে data/4th_sem/demo.json
+            const path = `./data/${currentSemester}_sem/demo.json`;
 
             try {
-                // তোর গিটহাবের পাথ অনুযায়ী
-                const res = await fetch('./data/3rd_sem/demo.json');
+                const res = await fetch(path);
+                if (!res.ok) throw new Error("File not found");
                 const data = await res.json();
-                
-                container.innerHTML = ""; // আগের লেখা মুছলাম
-
-                data.forEach((q, i) => {
-                    const isLocked = i >= 5;
-                    const div = document.createElement('div');
-                    div.className = `glass p-6 rounded-3xl ${isLocked ? 'premium-lock' : ''}`;
-                    div.innerHTML = `
-                        <h4 class="font-bold mb-4">${i+1}. ${q.question}</h4>
-                        <div class="space-y-2">
-                            ${q.options.map(opt => `<button onclick="checkAns(this, '${q.answer}', '${q.expert_note}')" class="w-full text-left p-3 rounded-xl border border-gray-100 hover:bg-blue-50">${opt}</button>`).join('')}
-                        </div>
-                        <div class="note hidden mt-4 p-4 bg-blue-50 rounded-xl text-sm italic border-l-4 border-blue-400">
-                            <b>Note:</b> ${q.expert_note}
-                        </div>
-                    `;
-                    
-                    if(i === 5) {
-                        const btn = document.createElement('button');
-                        btn.className = "w-full p-4 bg-gray-900 text-white rounded-2xl font-bold mt-4";
-                        btn.innerText = "🔒 Unlock 500+ Questions (৳9)";
-                        btn.onclick = () => modal.classList.remove('hidden');
-                        container.appendChild(btn);
-                    }
-                    container.appendChild(div);
-                });
-
+                renderQuestions(data);
             } catch (err) {
-                container.innerHTML = `<p class='text-red-500'>মামা, demo.json ফাইলটা পাচ্ছিনা। পাথ ঠিক কর!</p>`;
+                quizContainer.innerHTML = `
+                    <div class='bg-red-50 p-6 rounded-2xl text-red-600 border border-red-100'>
+                        <h4 class='font-bold'>মামা, ফাইলটা নাই!</h4>
+                        <p class='text-sm mt-2'>পাথ: <b>${path}</b> এই ফোল্ডারে 'demo.json' ফাইলটা খুঁজে পাওয়া যাচ্ছে না।</p>
+                    </div>`;
             }
         }
 
-        function checkAns(btn, correct, note) {
-            const parent = btn.parentElement.parentElement;
-            const noteBox = parent.querySelector('.note');
-            if(btn.innerText.trim() === correct.trim()) {
-                btn.classList.add('bg-green-100', 'border-green-400');
+        function renderQuestions(questions) {
+            quizContainer.innerHTML = "";
+            questions.forEach((q, i) => {
+                const isLocked = i >= 5;
+                const div = document.createElement('div');
+                div.className = `glass p-6 rounded-3xl transition-all shadow-sm border border-white ${isLocked ? 'premium-lock' : ''}`;
+                
+                div.innerHTML = `
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="bg-blue-100 text-blue-600 text-xs font-bold px-2 py-1 rounded-lg">QUESTION ${i+1}</span>
+                    </div>
+                    <h4 class="text-lg font-bold text-gray-800 mb-6">${q.question}</h4>
+                    <div class="grid gap-3">
+                        ${q.options.map(opt => `
+                            <button onclick="handleCheck(this, '${q.answer}', '${q.expert_note}')" 
+                                class="ans-btn w-full text-left p-4 rounded-2xl border border-gray-100 bg-white/50 hover:bg-blue-50 hover:border-blue-200 transition-all">
+                                ${opt}
+                            </button>
+                        `).join('')}
+                    </div>
+                    <div class="note-box hidden mt-6 p-5 bg-blue-50 rounded-2xl border-l-4 border-blue-400">
+                        <p class="text-xs font-bold text-blue-500 uppercase tracking-widest mb-1">Expert Note</p>
+                        <p class="text-gray-700 text-sm leading-relaxed">${q.expert_note}</p>
+                    </div>
+                `;
+
+                quizContainer.appendChild(div);
+
+                if (i === 4 && questions.length > 5) {
+                    const lockDiv = document.createElement('div');
+                    lockDiv.className = "py-10 text-center";
+                    lockDiv.innerHTML = `
+                        <button onclick="modal.classList.remove('hidden')" class="bg-gray-900 text-white px-8 py-4 rounded-2xl font-bold shadow-2xl hover:scale-105 transition-transform">
+                            🔒 Unlock Remaining ${questions.length - 5} Questions
+                        </button>
+                    `;
+                    quizContainer.appendChild(lockDiv);
+                }
+            });
+        }
+
+        function handleCheck(btn, correct, note) {
+            const parent = btn.closest('.glass');
+            const noteBox = parent.querySelector('.note-box');
+            const allBtns = parent.querySelectorAll('.ans-btn');
+
+            // সব বাটন ডিজেবল করে দাও যাতে একবারই ক্লিক করা যায়
+            allBtns.forEach(b => b.style.pointerEvents = "none");
+
+            if (btn.innerText.trim() === correct.trim()) {
+                btn.classList.replace('bg-white/50', 'bg-green-100');
+                btn.classList.replace('border-gray-100', 'border-green-400');
+                btn.innerHTML += " <i class='fas fa-check-circle float-right'></i>";
             } else {
-                btn.classList.add('bg-red-100', 'border-red-400');
+                btn.classList.replace('bg-white/50', 'bg-red-100');
+                btn.classList.replace('border-gray-100', 'border-red-400');
+                btn.innerHTML += " <i class='fas fa-times-circle float-right'></i>";
+                
+                // সঠিক উত্তরটাও হাইলাইট করে দাও
+                allBtns.forEach(b => {
+                    if(b.innerText.trim() === correct.trim()) {
+                        b.classList.replace('bg-white/50', 'bg-green-50');
+                        b.classList.add('text-green-600', 'font-semibold');
+                    }
+                });
             }
             noteBox.classList.remove('hidden');
         }
